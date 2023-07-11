@@ -1,13 +1,12 @@
-const noteTypeDefs = `#graphql
+import gql from "graphql-tag";
+
+const noteTypeDefs = gql`
   type Note {
     id: ID!
     user: User!
-    content: String
-    photoUrl: String
-  }
-
-  type Mutation {
-    createNote(userId: ID!, content: String, photoUrl: String): Note!
+    date: String!
+    content: String!
+    title: String!
   }
 `;
 

@@ -1,12 +1,23 @@
 import * as React from "react";
 import {useFonts} from "expo-font";
-import {NavigationContainer} from "@react-navigation/native";
+import { createStackNavigator } from '@react-navigation/stack';
+import {ApolloProvider} from "@apollo/client";
 
 //import components
-import BottomNav from "./app/components/common/BottomNav";
+import LoggedInScreen from "./app/screens/LoggedInScreen";
+import LoginScreen from "./app/screens/LoginScreen";
+
+//import server
+import apolloClient from "./app/server/apolloClient";
+import {useEffect, useState} from "react";
+import storageConstants from "./app/constants/storageConstants";
+
+const Stack = createStackNavigator();
 
 const App: React.FC = () => {
-  const [fontsLoaded] = useFonts({
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    const [fontsLoaded] = useFonts({
     "Pacifico": require("./app/assets/fonts/Pacifico-Regular.ttf"),
     "OpenSans-Light": require("./app/assets/fonts/OpenSans-Light.ttf"),
     "OpenSans-Regular": require("./app/assets/fonts/OpenSans-Medium.ttf"),
@@ -17,10 +28,16 @@ const App: React.FC = () => {
     return null
   }
 
+  useEffect(() => {
+      storageConstants.get().then(response => setIsLoggedIn(response))
+  }, [])
+
   return (
-      <NavigationContainer>
-        <BottomNav/>
-      </NavigationContainer>
+      <ApolloProvider client={apolloClient}>
+          <Stack.Navigator>
+              {isLoggedIn ? <LoggedInScreen/> : <LoginScreen/>}
+          </Stack.Navigator>
+      </ApolloProvider>
   )
 }
 
