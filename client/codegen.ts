@@ -1,7 +1,7 @@
 import {CodegenConfig} from "@graphql-codegen/cli";
 
 const config: CodegenConfig = {
-    schema: process.env.REACT_APP_APOLLO_URL,
+    schema: process.env.EXPO_PUBLIC_APOLLO_URL,
     documents: ["src/**/*.tsx"],
     generates: {
         "./src/__generated__/": {

@@ -1,92 +1,109 @@
-import * as React from "react";
-import {Text, View, TextInput, Button, StyleSheet, Image} from "react-native"
-import {useForm, Controller} from "react-hook-form"
+import React, {useState} from "react";
+import {Text, View, Image, StyleSheet} from "react-native"
+import {useForm} from "react-hook-form"
 import {Link} from '@react-navigation/native';
-
-//import interfaces
-import {ILoginValues, loginDefaultValues as defaultValues} from "../interfaces/formsInterface";
+import {yupResolver} from '@hookform/resolvers/yup';
+import {gql, useMutation} from "@apollo/client";
 
 //import assets
 import Icon from "../assets/icons/recto.png"
-import styleConstants from "../constants/styleConstants";
 
 //import constants
-import stylesConstants from "../constants/styleConstants"
+import styleConstants from "../constants/styleConstants"
+import validation from "../constants/validationConstant";
+import encrypt from "../constants/crypto";
+import toast from "../constants/toastConstants";
+import storageConstants from "../constants/storageConstants";
 
-const LoginScreen: React.FC = () => {
-    const {control, handleSubmit, formState: {errors}} = useForm<ILoginValues>({defaultValues});
-    const onSubmit = handleSubmit(data => console.log(data));
+//import components
+import AppText from "../components/common/AppText";
+import Input from "../components/common/Input";
+import Submit from "../components/common/Submit";
+
+//import interfaces
+import {LoginFormData} from "../interfaces/formsInterface";
+
+const LOGIN = gql`
+  mutation Login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+        code
+        token
+    }
+  }
+`;
+
+const LoginScreen: React.FC = ({navigation}) => {
+    const [login] = useMutation(LOGIN);
+
+    const [hasSubmit, setHasSubmit] = useState<boolean>(false);
+
+    const {control, handleSubmit, formState: {errors}} = useForm<LoginFormData>({
+        resolver: yupResolver(validation.login)
+    })
+
+    const success = token => {
+        storageConstants.set(token)
+        navigation.navigate('connecte')
+    }
+
+    const onSubmit = handleSubmit((values) => {
+        const valuesToSubmit = {
+            email: encrypt(values.email as string),
+            password: encrypt(values.password as string)
+        }
+
+        login({variables: valuesToSubmit}).then(({data}) => {
+            data.login.code === "203" && toast.error("Une erreur est survenue !", "Identifiants incorrects")
+            data.login.code === "202" && success(data.login.token)
+        })
+    })
+
+    const styles = styleConstants.formStyle
 
     return (
         <View style={styles.container}>
-            <View>
-                <Image
-                    style={styles.image}
-                    source={Icon}
-                />
-            </View>
+            <Image style={styles.image} source={Icon}/>
 
-            <View>
-                <Text style={styles.title}>Connexion</Text>
-            </View>
+            <Text style={styles.title}>Connexion</Text>
 
-            <View>
+            <Input
+                control={control}
+                errors={errors}
+                name="email"
+                placeholder="Email"
+                hasSubmit={hasSubmit}
+                rules={{required: true}}
+            />
 
-            </View>
+            <Input
+                control={control}
+                errors={errors}
+                name="password"
+                placeholder="Mot de passe"
+                hasSubmit={hasSubmit}
+                rules={{required: true}}
+            />
 
-            <View>
+            <Link style={LSStyles.forgot} to={{screen: 'recuperation'}}> Mot de passe oublié ?</Link>
 
-            </View>
+            <Submit title="Se connecter" onPress={handleSubmit(onSubmit)} errors={errors} setHasSubmit={setHasSubmit}/>
 
             <View style={styles.end}>
-                <Text>Vous n'avez pas de compte ?</Text>
-                <Link style={styles.link} to={{screen: 'signup'}}> Inscription</Link>
+                <AppText>Vous n'avez pas de compte ?</AppText>
+                <Link style={styles.link} to={{screen: 'inscription'}}> Inscription</Link>
             </View>
-
-            {/*<Controller
-                control={control}
-                rules={{required: true}}
-                render={({field}) => <TextInput {...field}/>}
-                name="email"
-            />
-            {errors.email && <Text>This is required.</Text>}
-
-            <Controller
-                control={control}
-                rules={{required: true}}
-                render={({field}) => <TextInput {...field}/>}
-                name="password"
-            />*/}
-
-            {/*<Button title="Submit" onPress={handleSubmit(onSubmit)}/>*/}
         </View>
     )
 }
 
 export default LoginScreen;
 
-const styles = StyleSheet.create({
-    container: {
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-        backgroundColor: styleConstants.colors.white
-    },
-    title: {
-        fontWeight: "700"
-    },
-    image: {
-        height: 200,
-        width: 200,
-        borderRadius: 50
-    },
-    end: {
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    link: {
-        color: stylesConstants.colors.yellow,
-        fontWeight: '700'
+const LSStyles = StyleSheet.create({
+    forgot: {
+        fontSize: styleConstants.size.small,
+        color: styleConstants.colors.yellow,
+        fontFamily: "OpenSans-Bold",
+        textAlign: "right"
     }
 })
+

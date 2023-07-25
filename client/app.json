@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./src/assets/config/icon.png",
     "userInterfaceStyle": "light",
-    "platforms": ["android"],
+    "platforms": ["android", "web"],
     "splash": {
       "image": "./src/assets/config/splash.png",
       "resizeMode": "contain",

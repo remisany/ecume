@@ -18,14 +18,18 @@ export type Scalars = {
 
 export type CreateUser = {
   email: Scalars['String']['input'];
-  password: Scalars['String']['input'];
+};
+
+export type LoginResponse = {
+  __typename?: 'LoginResponse';
+  code: Scalars['String']['output'];
+  token?: Maybe<Scalars['String']['output']>;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  createUser: User;
-  deleteUser?: Maybe<User>;
-  updateUser: User;
+  createUser: MutationResponse;
+  login?: Maybe<LoginResponse>;
 };
 
 
@@ -34,13 +38,14 @@ export type MutationCreateUserArgs = {
 };
 
 
-export type MutationDeleteUserArgs = {
-  id: Scalars['ID']['input'];
+export type MutationLoginArgs = {
+  email: Scalars['String']['input'];
+  password: Scalars['String']['input'];
 };
 
-
-export type MutationUpdateUserArgs = {
-  input: UpdateUser;
+export type MutationResponse = {
+  __typename?: 'MutationResponse';
+  code: Scalars['String']['output'];
 };
 
 export type Note = {
@@ -62,17 +67,13 @@ export type QueryGetUserArgs = {
   id: Scalars['ID']['input'];
 };
 
-export type UpdateUser = {
-  email?: InputMaybe<Scalars['String']['input']>;
-  id: Scalars['ID']['input'];
-  password?: InputMaybe<Scalars['String']['input']>;
-};
-
 export type User = {
   __typename?: 'User';
   email: Scalars['String']['output'];
+  hasChangePassword: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
   notes?: Maybe<Array<Maybe<Note>>>;
+  password: Scalars['String']['output'];
 };
 
 
@@ -149,11 +150,12 @@ export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateUser: CreateUser;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  LoginResponse: ResolverTypeWrapper<LoginResponse>;
   Mutation: ResolverTypeWrapper<{}>;
+  MutationResponse: ResolverTypeWrapper<MutationResponse>;
   Note: ResolverTypeWrapper<Note>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
-  UpdateUser: UpdateUser;
   User: ResolverTypeWrapper<User>;
 };
 
@@ -162,18 +164,29 @@ export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   CreateUser: CreateUser;
   ID: Scalars['ID']['output'];
+  LoginResponse: LoginResponse;
   Mutation: {};
+  MutationResponse: MutationResponse;
   Note: Note;
   Query: {};
   String: Scalars['String']['output'];
-  UpdateUser: UpdateUser;
   User: User;
 };
 
+export type LoginResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginResponse'] = ResolversParentTypes['LoginResponse']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
-  deleteUser?: Resolver<Maybe<ResolversTypes['User']>, ParentType, ContextType, RequireFields<MutationDeleteUserArgs, 'id'>>;
-  updateUser?: Resolver<ResolversTypes['User'], ParentType, ContextType, RequireFields<MutationUpdateUserArgs, 'input'>>;
+  createUser?: Resolver<ResolversTypes['MutationResponse'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  login?: Resolver<Maybe<ResolversTypes['LoginResponse']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
+};
+
+export type MutationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['MutationResponse'] = ResolversParentTypes['MutationResponse']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type NoteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Note'] = ResolversParentTypes['Note']> = {
@@ -191,13 +204,17 @@ export type QueryResolvers<ContextType = any, ParentType extends ResolversParent
 
 export type UserResolvers<ContextType = any, ParentType extends ResolversParentTypes['User'] = ResolversParentTypes['User']> = {
   email?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  hasChangePassword?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
   id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   notes?: Resolver<Maybe<Array<Maybe<ResolversTypes['Note']>>>, ParentType, ContextType>;
+  password?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type Resolvers<ContextType = any> = {
+  LoginResponse?: LoginResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
+  MutationResponse?: MutationResponseResolvers<ContextType>;
   Note?: NoteResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

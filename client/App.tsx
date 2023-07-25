@@ -1,26 +1,32 @@
 import * as React from "react";
 import {useFonts} from "expo-font";
-import { createStackNavigator } from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ApolloProvider} from "@apollo/client";
+import {useEffect, useState} from "react";
+import {NavigationContainer} from "@react-navigation/native";
+import Toast from 'react-native-toast-message';
 
 //import components
 import LoggedInScreen from "./src/screens/LoggedInScreen";
 import LoginScreen from "./src/screens/LoginScreen";
+import SignupScreen from "./src/screens/SignupScreen";
+import ForgotScreen from "./src/screens/forgotScreen";
 
 //import server
 import apolloClient from "./src/server/apolloClient";
-import {useEffect, useState} from "react";
-import {NavigationContainer} from "@react-navigation/native";
-import storageConstants from "./src/constants/storageConstants";
-import SignupScreen from "./src/screens/SignupScreen";
 
-const Stack = createStackNavigator();
+//import constants
+import storageConstants from "./src/constants/storageConstants";
+import toastConstants from "./src/constants/toastConstants";
+import PasswordScreen from "./src/screens/PasswordScreen";
+
+const Stack = createNativeStackNavigator();
 
 const App: React.FC = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     useEffect(() => {
-        storageConstants.get().then(response => setIsLoggedIn(response))
+        storageConstants.get().then(response => setIsLoggedIn(response !== null))
     }, [])
 
     const [fontsLoaded] = useFonts({
@@ -39,15 +45,20 @@ const App: React.FC = () => {
           <NavigationContainer>
               <Stack.Navigator screenOptions={{headerShown: false}}>
                   {isLoggedIn ?
-                      <Stack.Screen name="loggedIn" component={LoggedInScreen}/>
+                      <>
+                          <Stack.Screen name="connecte" component={LoggedInScreen}/>
+                          <Stack.Screen name="definition" component={PasswordScreen}/>
+                      </>
                       :
                       <>
-                        <Stack.Screen name="login" component={LoginScreen}/>
-                        <Stack.Screen name="signup" component={SignupScreen}/>
+                          <Stack.Screen name="connexion" component={LoginScreen}/>
+                          <Stack.Screen name="inscription" component={SignupScreen}/>
+                          <Stack.Screen name="recuperation" component={ForgotScreen}/>
                       </>
                   }
               </Stack.Navigator>
           </NavigationContainer>
+          <Toast config={toastConstants.config}/>
       </ApolloProvider>
   )
 }
