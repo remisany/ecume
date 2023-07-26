@@ -6,20 +6,20 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import {gql, useMutation} from "@apollo/client";
 
 //import constants
-import validation from "../constants/validationConstant";
-import styleConstants from "../constants/styleConstants";
-import toast from "../constants/toastConstants"
+import validation from "../../constants/validationConstant";
+import styleConstants from "../../constants/styleConstants";
+import toast from "../../constants/toastConstants"
 
 //import assets
-import Icon from "../assets/icons/verso.png";
+import Icon from "../../assets/icons/verso.png";
 
 //import components
-import Input from "../components/common/Input";
-import Submit from "../components/common/Submit";
-import AppText from "../components/common/AppText";
+import Input from "../../components/common/Input";
+import Submit from "../../components/common/Submit";
+import AppText from "../../components/common/AppText";
 
 //import interfaces
-import {SignupFormData} from "../interfaces/formsInterface";
+import {SignupFormData} from "../../interfaces/formsInterface";
 
 const CREATE_USER = gql`
   mutation CreateUser($input: CreateUser!) {

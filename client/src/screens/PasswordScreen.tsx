@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Text, View, Image} from "react-native"
 import {useForm} from "react-hook-form"
 import {yupResolver} from '@hookform/resolvers/yup';
@@ -16,14 +16,16 @@ import Input from "../components/common/Input";
 import Submit from "../components/common/Submit";
 
 //import interfaces
-import {LoginFormData} from "../interfaces/formsInterface";
+import {PasswordFormData} from "../interfaces/formsInterface";
 
 //import constants
 import encrypt from "../constants/crypto";
+import storageConstants from "../constants/storageConstants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const LOGIN = gql`
-  mutation Login($email: String!, $password: String!) {
-    login(email: $email, password: $password) {
+const DEFINE = gql`
+  mutation Define($password: String!) {
+    define(password: $password) {
         code
         token
     }
@@ -31,19 +33,18 @@ const LOGIN = gql`
 `;
 
 const PasswordScreen: React.FC = () => {
-    const [login] = useMutation(LOGIN);
+    const [define] = useMutation(DEFINE);
 
     const [hasSubmit, setHasSubmit] = useState<boolean>(false);
 
-    const {control, handleSubmit, formState: {errors}} = useForm<LoginFormData>({
-        resolver: yupResolver(validation.login)
+    const {control, handleSubmit, formState: {errors}} = useForm<PasswordFormData>({
+        resolver: yupResolver(validation.password)
     })
 
-    const onSubmit = handleSubmit((values) => {
-        const valuesToSubmit = {
-            email: encrypt(values.email as string),
-            password: encrypt(values.password as string)
-        }
+    const onSubmit = handleSubmit(async (values) => {
+        define({variables: {password: encrypt(values.password as string)}}).then(({data}) => {
+            console.log(data)
+        })
     })
 
     const styles = styleConstants.formStyle

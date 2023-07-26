@@ -9,6 +9,7 @@ import token from "../constants/token";
 
 //import interfaces
 import {IUser} from "../interfaces/userInterface";
+import {GraphQLError} from "graphql";
 
 const loginResolvers: IResolvers = {
     Mutation: {
@@ -29,7 +30,11 @@ const loginResolvers: IResolvers = {
 
                 return {code: "202", token: token.generate(user)}
             } catch {
-                return {code: "500"}
+                throw new GraphQLError('error', {
+                    extensions: {
+                        http: {status: 500},
+                    },
+                })
             }
         }
     }

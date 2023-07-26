@@ -13,9 +13,14 @@ const signup = yup.object({
     email: emailValidation,
 }).required()
 
+const password = yup.object({
+    password: passwordValidation,
+}).required()
+
 const validation = {
     login: login,
-    signup: signup
+    signup: signup,
+    password: password
 }
 
 export default validation

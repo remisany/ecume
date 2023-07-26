@@ -20,6 +20,17 @@ export type CreateUser = {
   email: Scalars['String']['input'];
 };
 
+export type DefineResponse = {
+  __typename?: 'DefineResponse';
+  code: Scalars['String']['output'];
+  token?: Maybe<Scalars['String']['output']>;
+};
+
+export type ForgotResponse = {
+  __typename?: 'ForgotResponse';
+  code: Scalars['String']['output'];
+};
+
 export type LoginResponse = {
   __typename?: 'LoginResponse';
   code: Scalars['String']['output'];
@@ -29,12 +40,24 @@ export type LoginResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: MutationResponse;
+  define?: Maybe<DefineResponse>;
+  forgot?: Maybe<ForgotResponse>;
   login?: Maybe<LoginResponse>;
 };
 
 
 export type MutationCreateUserArgs = {
   input: CreateUser;
+};
+
+
+export type MutationDefineArgs = {
+  password: Scalars['String']['input'];
+};
+
+
+export type MutationForgotArgs = {
+  email: Scalars['String']['input'];
 };
 
 
@@ -149,6 +172,8 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
   CreateUser: CreateUser;
+  DefineResponse: ResolverTypeWrapper<DefineResponse>;
+  ForgotResponse: ResolverTypeWrapper<ForgotResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
   LoginResponse: ResolverTypeWrapper<LoginResponse>;
   Mutation: ResolverTypeWrapper<{}>;
@@ -163,6 +188,8 @@ export type ResolversTypes = {
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
   CreateUser: CreateUser;
+  DefineResponse: DefineResponse;
+  ForgotResponse: ForgotResponse;
   ID: Scalars['ID']['output'];
   LoginResponse: LoginResponse;
   Mutation: {};
@@ -173,6 +200,17 @@ export type ResolversParentTypes = {
   User: User;
 };
 
+export type DefineResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DefineResponse'] = ResolversParentTypes['DefineResponse']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type ForgotResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['ForgotResponse'] = ResolversParentTypes['ForgotResponse']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
 export type LoginResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['LoginResponse'] = ResolversParentTypes['LoginResponse']> = {
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
   token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -181,6 +219,8 @@ export type LoginResponseResolvers<ContextType = any, ParentType extends Resolve
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
   createUser?: Resolver<ResolversTypes['MutationResponse'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
+  define?: Resolver<Maybe<ResolversTypes['DefineResponse']>, ParentType, ContextType, RequireFields<MutationDefineArgs, 'password'>>;
+  forgot?: Resolver<Maybe<ResolversTypes['ForgotResponse']>, ParentType, ContextType, RequireFields<MutationForgotArgs, 'email'>>;
   login?: Resolver<Maybe<ResolversTypes['LoginResponse']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
 };
 
@@ -212,6 +252,8 @@ export type UserResolvers<ContextType = any, ParentType extends ResolversParentT
 };
 
 export type Resolvers<ContextType = any> = {
+  DefineResponse?: DefineResponseResolvers<ContextType>;
+  ForgotResponse?: ForgotResponseResolvers<ContextType>;
   LoginResponse?: LoginResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   MutationResponse?: MutationResponseResolvers<ContextType>;

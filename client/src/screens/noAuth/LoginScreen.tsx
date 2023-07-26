@@ -6,22 +6,22 @@ import {yupResolver} from '@hookform/resolvers/yup';
 import {gql, useMutation} from "@apollo/client";
 
 //import assets
-import Icon from "../assets/icons/recto.png"
+import Icon from "../../assets/icons/recto.png"
 
 //import constants
-import styleConstants from "../constants/styleConstants"
-import validation from "../constants/validationConstant";
-import encrypt from "../constants/crypto";
-import toast from "../constants/toastConstants";
-import storageConstants from "../constants/storageConstants";
+import styleConstants from "../../constants/styleConstants"
+import validation from "../../constants/validationConstant";
+import encrypt from "../../constants/crypto";
+import toast from "../../constants/toastConstants";
+import storageConstants from "../../constants/storageConstants";
 
 //import components
-import AppText from "../components/common/AppText";
-import Input from "../components/common/Input";
-import Submit from "../components/common/Submit";
+import AppText from "../../components/common/AppText";
+import Input from "../../components/common/Input";
+import Submit from "../../components/common/Submit";
 
 //import interfaces
-import {LoginFormData} from "../interfaces/formsInterface";
+import {LoginFormData} from "../../interfaces/formsInterface";
 
 const LOGIN = gql`
   mutation Login($email: String!, $password: String!) {

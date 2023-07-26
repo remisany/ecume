@@ -1,8 +1,8 @@
 //import components
-import HomeScreen from "../screens/HomeScreen";
-import NotificationScreen from "../screens/NotificationScreen";
-import FolderScreen from "../screens/FolderScreen";
-import ProfileScreen from "../screens/ProfileScreen";
+import HomeScreen from "../screens/auth/HomeScreen";
+import NotificationScreen from "../screens/auth/NotificationScreen";
+import FolderScreen from "../screens/auth/FolderScreen";
+import ProfileScreen from "../screens/auth/ProfileScreen";
 
 //import interfaces
 import {ITabScreenConstant} from "../interfaces/tabScreenInterfaces";

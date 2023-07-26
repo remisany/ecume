@@ -11,19 +11,11 @@ import User from "../models/User";
 import crypto from "../constants/crypto";
 import transporter from "../constants/transporter";
 import generatePassword from "../constants/password";
+import {GraphQLError} from "graphql";
 
 const url = __dirname.replace("/resolvers", "")
 
 const userResolvers: IResolvers<UserResolvers> = {
-    Query: {
-        getUser: async (_, {id}) => {
-            try {
-                return await User.findById(id)
-            } catch (error) {
-                throw error
-            }
-        },
-    },
     Mutation: {
         createUser: async (_, {input}) => {
             try {
@@ -50,7 +42,11 @@ const userResolvers: IResolvers<UserResolvers> = {
 
                 return {code: "202"}
             } catch {
-                return {code: "500"}
+                throw new GraphQLError('error', {
+                    extensions: {
+                        http: {status: 500},
+                    },
+                })
             }
         }
     }

@@ -5,19 +5,19 @@ import {Link} from '@react-navigation/native';
 import {yupResolver} from '@hookform/resolvers/yup';
 
 //import assets
-import Icon from "../assets/icons/verso.png";
+import Icon from "../../assets/icons/verso.png";
 
 //import constants
-import styleConstants from "../constants/styleConstants"
-import validation from "../constants/validationConstant";
+import styleConstants from "../../constants/styleConstants"
+import validation from "../../constants/validationConstant";
 
 //import components
-import AppText from "../components/common/AppText";
-import Input from "../components/common/Input";
-import Submit from "../components/common/Submit";
+import AppText from "../../components/common/AppText";
+import Input from "../../components/common/Input";
+import Submit from "../../components/common/Submit";
 
 //import interfaces
-import {FormData} from "../interfaces/formsInterface";
+import {FormData} from "../../interfaces/formsInterface";
 
 const ForgotScreen: React.FC = () => {
     const {control, handleSubmit, clearErrors, formState: {errors, isDirty, dirtyFields}} = useForm<FormData>({

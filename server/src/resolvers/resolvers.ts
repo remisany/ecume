@@ -5,7 +5,10 @@ import {IResolvers} from "@graphql-tools/utils"
 import userResolvers from "./userResolvers";
 import noteResolvers from "./noteResolvers";
 import loginResolvers from "./loginResolvers";
+import passwordResolvers from "./passwordResolvers";
 
-const resolvers: IResolvers = mergeResolvers([userResolvers, noteResolvers, loginResolvers]);
+const resolvers: IResolvers = mergeResolvers([
+    userResolvers, noteResolvers, loginResolvers, passwordResolvers
+]);
 
 export default resolvers

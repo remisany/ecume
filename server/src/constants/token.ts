@@ -1,8 +1,10 @@
 import jwt from "jsonwebtoken"
 import {IncomingMessage} from "http";
+import {GraphQLError} from "graphql";
 
 //import interfaces
 import {IUser} from "../interfaces/userInterface";
+import {IToken} from "../interfaces/tokenInterface";
 
 const generate = (user: IUser): string => {
     return jwt.sign({
@@ -12,12 +14,8 @@ const generate = (user: IUser): string => {
     }, process.env.SECRET_KEY as string)
 }
 
-const verify = (token: string) => {
-    try {
-        return jwt.verify(token, process.env.SECRET_KEY as string)
-    } catch {
-        throw new Error('invalid token')
-    }
+const verify = (token: string): IToken => {
+    return jwt.verify(token, process.env.SECRET_KEY as string) as IToken
 }
 
 const context = async (req: IncomingMessage) => {
@@ -27,10 +25,14 @@ const context = async (req: IncomingMessage) => {
         const token = authHeader.split(' ')[1]
 
         try {
-            const decodedToken = verify(token)
-            console.log(decodedToken)
+            const decodedToken = await verify(token)
+            return {req, token: decodedToken}
         } catch {
-            throw new Error('invalid token')
+            throw new GraphQLError('invalid token', {
+                extensions: {
+                    http: {status: 401},
+                },
+            })
         }
     }
 

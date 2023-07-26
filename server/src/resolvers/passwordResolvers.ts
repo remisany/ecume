@@ -1,5 +1,11 @@
 import {IResolvers} from "@graphql-tools/utils"
 
+//import constants
+import token from "../constants/token";
+import User from "../models/User";
+import {IToken} from "../interfaces/tokenInterface";
+import {GraphQLError} from "graphql";
+
 const passwordResolvers: IResolvers = {
     Mutation: {
         forgot: async (_, data) => {
@@ -15,11 +21,30 @@ const passwordResolvers: IResolvers = {
                 return {code: "500"}
             }
         },
-        define: async (_, data) => {
+        define: async (_, data, {token}) => {
             //input: token
             //update password
             //hasChangePassword => true
             //return new token
+            console.log(token)
+
+            try {
+                //const decodedToken: IToken = token.verify(data.token)
+
+                //const user = await User.findById(decodedToken.id)
+
+                //console.log(user)
+
+                //return {code: "203"}
+
+                return {code: "202"}
+            } catch {
+                throw new GraphQLError('error', {
+                    extensions: {
+                        http: {status: 500},
+                    },
+                })
+            }
         }
     }
 };
