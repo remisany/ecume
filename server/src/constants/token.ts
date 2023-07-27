@@ -26,7 +26,7 @@ const context = async (req: IncomingMessage) => {
 
         try {
             const decodedToken = await verify(token)
-            return {req, token: decodedToken}
+            return {req, authToken: decodedToken}
         } catch {
             throw new GraphQLError('invalid token', {
                 extensions: {

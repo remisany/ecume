@@ -13,11 +13,12 @@ import styleConstants from "../../constants/styleConstants"
 import validation from "../../constants/validationConstant";
 import encrypt from "../../constants/crypto";
 import toast from "../../constants/toastConstants";
+import input from "../../constants/input";
 import storageConstants from "../../constants/storageConstants";
+import loginSuccess from "../../constants/login";
 
 //import components
 import AppText from "../../components/common/AppText";
-import Input from "../../components/common/Input";
 import Submit from "../../components/common/Submit";
 
 //import interfaces
@@ -41,7 +42,7 @@ const LoginScreen: React.FC = ({navigation}) => {
         resolver: yupResolver(validation.login)
     })
 
-    const success = token => {
+    const success = (token: String) => {
         storageConstants.set(token)
         navigation.navigate('connecte')
     }
@@ -54,7 +55,7 @@ const LoginScreen: React.FC = ({navigation}) => {
 
         login({variables: valuesToSubmit}).then(({data}) => {
             data.login.code === "203" && toast.error("Une erreur est survenue !", "Identifiants incorrects")
-            data.login.code === "202" && success(data.login.token)
+            data.login.code === "202" && loginSuccess(data.login.token, navigation)
         })
     })
 
@@ -66,23 +67,8 @@ const LoginScreen: React.FC = ({navigation}) => {
 
             <Text style={styles.title}>Connexion</Text>
 
-            <Input
-                control={control}
-                errors={errors}
-                name="email"
-                placeholder="Email"
-                hasSubmit={hasSubmit}
-                rules={{required: true}}
-            />
-
-            <Input
-                control={control}
-                errors={errors}
-                name="password"
-                placeholder="Mot de passe"
-                hasSubmit={hasSubmit}
-                rules={{required: true}}
-            />
+            {input.email(control, errors, hasSubmit)}
+            {input.password(control, errors, hasSubmit)}
 
             <Link style={LSStyles.forgot} to={{screen: 'recuperation'}}> Mot de passe oublié ?</Link>
 

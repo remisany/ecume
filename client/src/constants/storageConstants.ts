@@ -16,7 +16,7 @@ const set = async (token: string): Promise<boolean> => {
     }
 }
 
-const get = async (decrypt?: boolean): Promise<string | null | IToken | boolean> => {
+const get = async (decrypt?: boolean): Promise<string | null | IToken> => {
     try {
         const token = await AsyncStorage.getItem("token")
 

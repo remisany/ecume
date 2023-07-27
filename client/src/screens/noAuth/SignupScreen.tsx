@@ -9,12 +9,12 @@ import {gql, useMutation} from "@apollo/client";
 import validation from "../../constants/validationConstant";
 import styleConstants from "../../constants/styleConstants";
 import toast from "../../constants/toastConstants"
+import input from "../../constants/input";
 
 //import assets
 import Icon from "../../assets/icons/verso.png";
 
 //import components
-import Input from "../../components/common/Input";
 import Submit from "../../components/common/Submit";
 import AppText from "../../components/common/AppText";
 
@@ -32,7 +32,7 @@ const CREATE_USER = gql`
 const SignupScreen: React.FC = ({navigation}) => {
     const [createUser] = useMutation(CREATE_USER);
 
-    const [hasSubmit, setHasSubmit] = useState<boolean>(false);
+    const [hasSubmit, setHasSubmit] = useState<boolean>(false)
 
     const {control, handleSubmit, formState: {errors}} = useForm<SignupFormData>({
         resolver: yupResolver(validation.signup)
@@ -57,14 +57,7 @@ const SignupScreen: React.FC = ({navigation}) => {
 
             <Text style={styles.title}>Inscription</Text>
 
-            <Input
-                control={control}
-                errors={errors}
-                name="email"
-                placeholder="Email"
-                hasSubmit={hasSubmit}
-                rules={{required: true}}
-            />
+            {input.email(control, errors, hasSubmit)}
 
             <Submit title="S'inscrire" onPress={handleSubmit(onSubmit)} errors={errors} setHasSubmit={setHasSubmit}/>
 

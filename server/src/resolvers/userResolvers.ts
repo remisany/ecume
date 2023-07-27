@@ -1,5 +1,6 @@
 import {IResolvers} from "@graphql-tools/utils"
 import ejs from "ejs"
+import {GraphQLError} from "graphql";
 
 //import types
 import {UserResolvers} from "../types";
@@ -11,7 +12,6 @@ import User from "../models/User";
 import crypto from "../constants/crypto";
 import transporter from "../constants/transporter";
 import generatePassword from "../constants/password";
-import {GraphQLError} from "graphql";
 
 const url = __dirname.replace("/resolvers", "")
 

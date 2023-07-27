@@ -1,26 +1,14 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 //import components
 import BottomNav from "../../components/common/BottomNav";
+import AuthScreen from "./AuthScreen";
 
-//Import constants
-import storageConstants from "../../constants/storageConstants";
-
-//Import interfaces
-import {IToken} from "../../interfaces/tokenInterface";
-
-const LoggedInScreen: React.FC = ({navigation}) => {
-    useEffect(() => {
-        storageConstants.get(true).then((response) => {
-            if (typeof response === 'object') {
-                const decryptedToken = response as IToken
-                !decryptedToken.hasChangePassword && navigation.navigate('definition')
-            }
-        })
-    }, [])
-
+const LoggedInScreen: React.FC = () => {
     return (
-        <BottomNav/>
+        <AuthScreen>
+            <BottomNav/>
+        </AuthScreen>
     )
 }
 

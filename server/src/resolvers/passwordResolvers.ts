@@ -1,43 +1,76 @@
 import {IResolvers} from "@graphql-tools/utils"
+import {GraphQLError} from "graphql";
+import ejs from "ejs";
 
 //import constants
 import token from "../constants/token";
+
+//import models
 import User from "../models/User";
-import {IToken} from "../interfaces/tokenInterface";
-import {GraphQLError} from "graphql";
+
+//import interfaces
+import {IUser} from "../interfaces/userInterface";
+
+//import constants
+import transporter from "../constants/transporter";
+import generatePassword from "../constants/password";
+import crypto from "../constants/crypto";
+
+const url = __dirname.replace("/resolvers", "")
 
 const passwordResolvers: IResolvers = {
     Mutation: {
         forgot: async (_, data) => {
             try {
-                //input: email
-                //generate password
-                //update password
-                //hasChangePassword => false
-                //send mail
+                const email = crypto.decrypt(data.email).toLowerCase()
+                const password = generatePassword()
+
+                const user: IUser | null = await User.findOneAndUpdate(
+                    {email: email},
+                    {$set: {password: crypto.encrypt(password), hasChangePassword: false}}
+                ) as IUser | null
+
+                if (user === null) {
+                    return {code: "203"}
+                }
+
+                const template = await ejs.renderFile(url + "/templates/forgot.ejs", {password: password})
+
+                const mail = {
+                    from: "écume <remi.d.sany@gmail.com>",
+                    to: email,
+                    subject: "Votre mot de passe !",
+                    html: template,
+                }
+
+                await transporter.sendMail(mail)
 
                 return {code: "202"}
             } catch {
-                return {code: "500"}
+                throw new GraphQLError('error', {
+                    extensions: {
+                        http: {status: 500},
+                    },
+                })
             }
         },
-        define: async (_, data, {token}) => {
-            //input: token
-            //update password
-            //hasChangePassword => true
-            //return new token
-            console.log(token)
-
+        define: async (_, data, {authToken}) => {
             try {
-                //const decodedToken: IToken = token.verify(data.token)
+                const user = await User.findByIdAndUpdate(authToken.id, {$set: {password: data.password, hasChangePassword: true}}) as IUser | null
 
-                //const user = await User.findById(decodedToken.id)
+                if (user !== null) {
+                    const newUser: IUser = {
+                        _id: user._id,
+                        email: "",
+                        password: "",
+                        notes: [],
+                        hasChangePassword: true
+                    }
 
-                //console.log(user)
+                    return {code: "202", token: token.generate(newUser)}
+                }
 
-                //return {code: "203"}
-
-                return {code: "202"}
+                return {code: "203"}
             } catch {
                 throw new GraphQLError('error', {
                     extensions: {
