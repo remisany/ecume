@@ -24,7 +24,7 @@ const BottomNav: React.FC = () => {
                         options={{
                             headerTitle: () => <Header/>,
                             tabBarIcon: () => <Icon name={icon}/>,
-                            tabBarShowLabel: false
+                            tabBarShowLabel: false,
                         }}
                     />
                 )

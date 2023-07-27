@@ -15,6 +15,8 @@ const styles = StyleSheet.create({
         fontFamily: "Pacifico",
         fontSize: styleConstants.size.fontTitle,
         color: styleConstants.colors.yellow,
+        marginTop: -10,
+        marginLeft: -2
     }
 })
 

@@ -14,7 +14,6 @@ import validation from "../../constants/validationConstant";
 import encrypt from "../../constants/crypto";
 import toast from "../../constants/toastConstants";
 import input from "../../constants/input";
-import storageConstants from "../../constants/storageConstants";
 import loginSuccess from "../../constants/login";
 
 //import components
@@ -41,11 +40,6 @@ const LoginScreen: React.FC = ({navigation}) => {
     const {control, handleSubmit, formState: {errors}} = useForm<LoginFormData>({
         resolver: yupResolver(validation.login)
     })
-
-    const success = (token: String) => {
-        storageConstants.set(token)
-        navigation.navigate('connecte')
-    }
 
     const onSubmit = handleSubmit((values) => {
         const valuesToSubmit = {

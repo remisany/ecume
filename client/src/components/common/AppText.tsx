@@ -14,7 +14,7 @@ export default AppText
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: styleConstants.size.fontSize,
+        fontSize: styleConstants.size.regular,
         fontFamily: "OpenSans-Regular"
     }
 })
