@@ -66,7 +66,7 @@ const LoginScreen: React.FC = ({navigation}) => {
 
             <Link style={LSStyles.forgot} to={{screen: 'recuperation'}}> Mot de passe oublié ?</Link>
 
-            <Submit title="Se connecter" onPress={handleSubmit(onSubmit)} errors={errors} setHasSubmit={setHasSubmit}/>
+            <Submit title="Se connecter" onPress={handleSubmit(onSubmit)} setHasSubmit={setHasSubmit}/>
 
             <View style={styles.end}>
                 <AppText>Vous n'avez pas de compte ?</AppText>

@@ -16,10 +16,6 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
-export type CreateUser = {
-  email: Scalars['String']['input'];
-};
-
 export type DefineResponse = {
   __typename?: 'DefineResponse';
   code: Scalars['String']['output'];
@@ -40,23 +36,24 @@ export type LoginResponse = {
 export type Mutation = {
   __typename?: 'Mutation';
   createUser: MutationResponse;
-  define?: Maybe<DefineResponse>;
-  forgot?: Maybe<ForgotResponse>;
+  definePassword?: Maybe<DefineResponse>;
+  deleteUser: MutationResponse;
+  forgotPassword?: Maybe<ForgotResponse>;
   login?: Maybe<LoginResponse>;
 };
 
 
 export type MutationCreateUserArgs = {
-  input: CreateUser;
+  email: Scalars['String']['input'];
 };
 
 
-export type MutationDefineArgs = {
+export type MutationDefinePasswordArgs = {
   password: Scalars['String']['input'];
 };
 
 
-export type MutationForgotArgs = {
+export type MutationForgotPasswordArgs = {
   email: Scalars['String']['input'];
 };
 
@@ -171,7 +168,6 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
-  CreateUser: CreateUser;
   DefineResponse: ResolverTypeWrapper<DefineResponse>;
   ForgotResponse: ResolverTypeWrapper<ForgotResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
@@ -187,7 +183,6 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
-  CreateUser: CreateUser;
   DefineResponse: DefineResponse;
   ForgotResponse: ForgotResponse;
   ID: Scalars['ID']['output'];
@@ -218,9 +213,10 @@ export type LoginResponseResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
-  createUser?: Resolver<ResolversTypes['MutationResponse'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'input'>>;
-  define?: Resolver<Maybe<ResolversTypes['DefineResponse']>, ParentType, ContextType, RequireFields<MutationDefineArgs, 'password'>>;
-  forgot?: Resolver<Maybe<ResolversTypes['ForgotResponse']>, ParentType, ContextType, RequireFields<MutationForgotArgs, 'email'>>;
+  createUser?: Resolver<ResolversTypes['MutationResponse'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email'>>;
+  definePassword?: Resolver<Maybe<ResolversTypes['DefineResponse']>, ParentType, ContextType, RequireFields<MutationDefinePasswordArgs, 'password'>>;
+  deleteUser?: Resolver<ResolversTypes['MutationResponse'], ParentType, ContextType>;
+  forgotPassword?: Resolver<Maybe<ResolversTypes['ForgotResponse']>, ParentType, ContextType, RequireFields<MutationForgotPasswordArgs, 'email'>>;
   login?: Resolver<Maybe<ResolversTypes['LoginResponse']>, ParentType, ContextType, RequireFields<MutationLoginArgs, 'email' | 'password'>>;
 };
 

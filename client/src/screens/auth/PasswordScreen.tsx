@@ -25,9 +25,9 @@ import toast from "../../constants/toastConstants";
 import loginSuccess from "../../constants/login";
 import input from "../../constants/input";
 
-const DEFINE = gql`
-  mutation Define($password: String!) {
-    define(password: $password) {
+const DEFINE_PASSWORD = gql`
+  mutation DefinePassword($password: String!) {
+    definePassword(password: $password) {
         code
         token
     }
@@ -37,7 +37,7 @@ const DEFINE = gql`
 const PasswordScreen: React.FC = () => {
     const navigation = useNavigation()
 
-    const [define] = useMutation(DEFINE);
+    const [definePassword] = useMutation(DEFINE_PASSWORD);
 
     const [hasSubmit, setHasSubmit] = useState<boolean>(false);
 
@@ -46,9 +46,9 @@ const PasswordScreen: React.FC = () => {
     })
 
     const onSubmit = handleSubmit(async (values) => {
-        define({variables: {password: encrypt(values.password as string)}}).then(({data}) => {
-            data.define.code === "203" && toast.error("Une erreur est survenue !", "Utilisateur inconnu")
-            data.define.code === "202" && loginSuccess(data.define.token, navigation)
+        definePassword({variables: {password: encrypt(values.password as string)}}).then(({data}) => {
+            data.definePassword.code === "203" && toast.error("Une erreur est survenue !", "Utilisateur inconnu")
+            data.definePassword.code === "202" && loginSuccess(data.definePassword.token, navigation)
         })
     })
 
@@ -63,7 +63,7 @@ const PasswordScreen: React.FC = () => {
 
                 {input.password(control, errors, hasSubmit)}
 
-                <Submit title="Définir" onPress={handleSubmit(onSubmit)} errors={errors} setHasSubmit={setHasSubmit}/>
+                <Submit title="Définir" onPress={handleSubmit(onSubmit)} setHasSubmit={setHasSubmit}/>
             </View>
         </AuthScreen>
     )

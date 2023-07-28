@@ -11,8 +11,8 @@ const passwordTypeDefs = gql`
   }
   
   type Mutation {
-    define(password: String!): DefineResponse
-    forgot(email: String!): ForgotResponse
+    definePassword(password: String!): DefineResponse
+    forgotPassword(email: String!): ForgotResponse
   }
 `;
 

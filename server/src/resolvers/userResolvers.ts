@@ -17,9 +17,9 @@ const url = __dirname.replace("/resolvers", "")
 
 const userResolvers: IResolvers<UserResolvers> = {
     Mutation: {
-        createUser: async (_, {input}) => {
+        createUser: async (_, data) => {
             try {
-                const email = input.email.toLowerCase()
+                const email = data.email.toLowerCase()
                 const password = generatePassword()
                 const existingUser = await User.findOne({email})
 
@@ -42,11 +42,16 @@ const userResolvers: IResolvers<UserResolvers> = {
 
                 return {code: "202"}
             } catch {
-                throw new GraphQLError('error', {
-                    extensions: {
-                        http: {status: 500},
-                    },
-                })
+                throw new GraphQLError('error', {extensions: {http: {status: 500}}})
+            }
+        },
+        deleteUser: async (_, __, {authToken}) => {
+            try {
+                await User.findByIdAndRemove(authToken.id)
+                return {code: "202"}
+            }
+            catch {
+                throw new GraphQLError('error', {extensions: {http: {status: 500}}})
             }
         }
     }

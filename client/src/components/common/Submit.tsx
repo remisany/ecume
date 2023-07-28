@@ -1,25 +1,27 @@
 import React from "react";
-import {Text, StyleSheet, Pressable} from 'react-native';
-import {FieldErrors} from "react-hook-form/dist/types/errors";
+import {Text, StyleSheet, Pressable, StyleProp} from 'react-native';
+import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import constants
 import styleConstants from "../../constants/styleConstants";
 
 interface ISubmit {
     title: string
-    onPress: Function
-    errors: FieldErrors
-    setHasSubmit: Function
+    onPress?: Function
+    onLongPress?: Function
+    setHasSubmit?: Function
+    customStyle?: StyleProp<ViewStyle>
 }
 
-const Submit: React.FC<ISubmit> = ({title, onPress, errors, setHasSubmit}) => {
+const Submit: React.FC<ISubmit> = ({title, onPress, setHasSubmit, customStyle, onLongPress}) => {
     return (
         <Pressable
-            style={[styles.button]}
+            style={[styles.button, customStyle]}
             onPress={() => {
-                setHasSubmit(true)
-                onPress()
+                setHasSubmit && setHasSubmit(true)
+                onPress && onPress()
             }}
+            onLongPress={onLongPress && onLongPress}
         >
             <Text style={styles.text}>{title}</Text>
         </Pressable>

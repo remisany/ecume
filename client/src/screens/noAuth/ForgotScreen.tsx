@@ -22,9 +22,9 @@ import Submit from "../../components/common/Submit";
 //import interfaces
 import {SignupFormData} from "../../interfaces/formsInterface";
 
-const FORGOT = gql`
-  mutation Forgot($email: String!) {
-    forgot(email: $email) {
+const FORGOT_PASSWORD = gql`
+  mutation ForgotPassword($email: String!) {
+    forgotPassword(email: $email) {
         code
     }
   }
@@ -33,7 +33,7 @@ const FORGOT = gql`
 const ForgotScreen: React.FC = () => {
     const navigation = useNavigation()
 
-    const [forgot] = useMutation(FORGOT);
+    const [forgotPassword] = useMutation(FORGOT_PASSWORD);
 
     const [hasSubmit, setHasSubmit] = useState<boolean>(false)
 
@@ -42,11 +42,11 @@ const ForgotScreen: React.FC = () => {
     })
 
     const onSubmit = handleSubmit(async (values) => {
-        forgot({variables: {email: encrypt(values.email as string)}}).then(({data}) => {
+        forgotPassword({variables: {email: encrypt(values.email as string)}}).then(({data}) => {
             const navigate = () => navigation.navigate('connexion')
 
-            data.forgot.code === "202" && toast.success("Mot de passe récupéré !", "Un email vous a été envoyé", navigate)
-            data.forgot.code === "203" && toast.error("Une erreur est survenue !", "Utilisateur inconnu")
+            data.forgotPassword.code === "202" && toast.success("Mot de passe récupéré !", "Un email vous a été envoyé", navigate)
+            data.forgotPassword.code === "203" && toast.error("Une erreur est survenue !", "Utilisateur inconnu")
         })
     })
     const styles = styleConstants.formStyle
@@ -59,7 +59,7 @@ const ForgotScreen: React.FC = () => {
 
             {input.email(control, errors, hasSubmit)}
 
-            <Submit title="Récupérer" onPress={handleSubmit(onSubmit)} errors={errors} setHasSubmit={setHasSubmit}/>
+            <Submit title="Récupérer" onPress={handleSubmit(onSubmit)} setHasSubmit={setHasSubmit}/>
 
             <View style={styles.end}>
                 <AppText>Je me souviens !</AppText>

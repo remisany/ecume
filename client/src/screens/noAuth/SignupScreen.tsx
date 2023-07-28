@@ -22,8 +22,8 @@ import AppText from "../../components/common/AppText";
 import {SignupFormData} from "../../interfaces/formsInterface";
 
 const CREATE_USER = gql`
-  mutation CreateUser($input: CreateUser!) {
-    createUser(input: $input) {
+  mutation CreateUser($email: String!) {
+    createUser(email: $email) {
       code
     }
   }
@@ -40,7 +40,7 @@ const SignupScreen: React.FC = ({navigation}) => {
 
     const onSubmit = handleSubmit(({email}) => {
         createUser({
-            variables: {input: {email}}
+            variables: {email}
         }).then(({data}) => {
             const navigate = () => navigation.navigate('connexion')
 
@@ -59,7 +59,7 @@ const SignupScreen: React.FC = ({navigation}) => {
 
             {input.email(control, errors, hasSubmit)}
 
-            <Submit title="S'inscrire" onPress={handleSubmit(onSubmit)} errors={errors} setHasSubmit={setHasSubmit}/>
+            <Submit title="S'inscrire" onPress={handleSubmit(onSubmit)} setHasSubmit={setHasSubmit}/>
 
             <View style={styles.end}>
                 <AppText>Vous avez déjà un compte ?</AppText>

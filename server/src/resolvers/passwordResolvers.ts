@@ -1,6 +1,6 @@
 import {IResolvers} from "@graphql-tools/utils"
-import {GraphQLError} from "graphql";
 import ejs from "ejs";
+import {GraphQLError} from "graphql";
 
 //import constants
 import token from "../constants/token";
@@ -20,7 +20,7 @@ const url = __dirname.replace("/resolvers", "")
 
 const passwordResolvers: IResolvers = {
     Mutation: {
-        forgot: async (_, data) => {
+        forgotPassword: async (_, data) => {
             try {
                 const email = crypto.decrypt(data.email).toLowerCase()
                 const password = generatePassword()
@@ -47,21 +47,17 @@ const passwordResolvers: IResolvers = {
 
                 return {code: "202"}
             } catch {
-                throw new GraphQLError('error', {
-                    extensions: {
-                        http: {status: 500},
-                    },
-                })
+                throw new GraphQLError('error', {extensions: {http: {status: 500}}})
             }
         },
-        define: async (_, data, {authToken}) => {
+        definePassword: async (_, data, {authToken}) => {
             try {
                 const user = await User.findByIdAndUpdate(authToken.id, {$set: {password: data.password, hasChangePassword: true}}) as IUser | null
 
                 if (user !== null) {
                     const newUser: IUser = {
                         _id: user._id,
-                        email: "",
+                        email: user.email,
                         password: "",
                         notes: [],
                         hasChangePassword: true
@@ -72,11 +68,7 @@ const passwordResolvers: IResolvers = {
 
                 return {code: "203"}
             } catch {
-                throw new GraphQLError('error', {
-                    extensions: {
-                        http: {status: 500},
-                    },
-                })
+                throw new GraphQLError('error', {extensions: {http: {status: 500}}})
             }
         }
     }

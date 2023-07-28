@@ -13,9 +13,10 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation DefinePassword($password: String!) {\n    definePassword(password: $password) {\n        code\n        token\n    }\n  }\n": types.DefinePasswordDocument,
+    "\n  mutation ForgotPassword($email: String!) {\n    forgotPassword(email: $email) {\n        code\n    }\n  }\n": types.ForgotPasswordDocument,
     "\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n        code\n        token\n    }\n  }\n": types.LoginDocument,
-    "\n  mutation Define($password: String!) {\n    define(password: $password) {\n        code\n        token\n    }\n  }\n": types.DefineDocument,
-    "\n  mutation CreateUser($input: CreateUser!) {\n    createUser(input: $input) {\n      code\n    }\n  }\n": types.CreateUserDocument,
+    "\n  mutation CreateUser($email: String!) {\n    createUser(email: $email) {\n      code\n    }\n  }\n": types.CreateUserDocument,
 };
 
 /**
@@ -35,15 +36,19 @@ export function gql(source: string): unknown;
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
+export function gql(source: "\n  mutation DefinePassword($password: String!) {\n    definePassword(password: $password) {\n        code\n        token\n    }\n  }\n"): (typeof documents)["\n  mutation DefinePassword($password: String!) {\n    definePassword(password: $password) {\n        code\n        token\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function gql(source: "\n  mutation ForgotPassword($email: String!) {\n    forgotPassword(email: $email) {\n        code\n    }\n  }\n"): (typeof documents)["\n  mutation ForgotPassword($email: String!) {\n    forgotPassword(email: $email) {\n        code\n    }\n  }\n"];
+/**
+ * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
 export function gql(source: "\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n        code\n        token\n    }\n  }\n"): (typeof documents)["\n  mutation Login($email: String!, $password: String!) {\n    login(email: $email, password: $password) {\n        code\n        token\n    }\n  }\n"];
 /**
  * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function gql(source: "\n  mutation Define($password: String!) {\n    define(password: $password) {\n        code\n        token\n    }\n  }\n"): (typeof documents)["\n  mutation Define($password: String!) {\n    define(password: $password) {\n        code\n        token\n    }\n  }\n"];
-/**
- * The gql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
- */
-export function gql(source: "\n  mutation CreateUser($input: CreateUser!) {\n    createUser(input: $input) {\n      code\n    }\n  }\n"): (typeof documents)["\n  mutation CreateUser($input: CreateUser!) {\n    createUser(input: $input) {\n      code\n    }\n  }\n"];
+export function gql(source: "\n  mutation CreateUser($email: String!) {\n    createUser(email: $email) {\n      code\n    }\n  }\n"): (typeof documents)["\n  mutation CreateUser($email: String!) {\n    createUser(email: $email) {\n      code\n    }\n  }\n"];
 
 export function gql(source: string) {
   return (documents as any)[source] ?? {};

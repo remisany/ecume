@@ -8,10 +8,6 @@ const userTypeDefs = gql`
     hasChangePassword: Boolean!
     notes: [Note]
   }
-
-  input CreateUser {
-    email: String!
-  }
   
   type Query {
     getUser(id: ID!): User
@@ -22,7 +18,8 @@ const userTypeDefs = gql`
   }
 
   type Mutation {
-    createUser(input: CreateUser!): MutationResponse!
+    createUser(email: String!): MutationResponse!
+    deleteUser: MutationResponse!
   }
 `;
 
