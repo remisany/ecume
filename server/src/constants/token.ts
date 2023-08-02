@@ -3,10 +3,10 @@ import {IncomingMessage} from "http";
 import {GraphQLError} from "graphql";
 
 //import interfaces
-import {IUser} from "../interfaces/userInterface";
+import {IUser, IUserToken} from "../interfaces/userInterface";
 import {IToken} from "../interfaces/tokenInterface";
 
-const generate = (user: IUser): string => {
+const generate = (user: IUserToken): string => {
     return jwt.sign({
         id: user._id,
         email: user.email,

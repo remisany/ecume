@@ -4,13 +4,13 @@ const userTypeDefs = gql`
   type User {
     id: ID!
     email: String!
-    password: String!
     hasChangePassword: Boolean!
-    notes: [Note]
+    notes: [ID]
+    project: [ID]
   }
   
   type Query {
-    getUser(id: ID!): User
+    _dummy: String
   }
   
   type MutationResponse {

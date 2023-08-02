@@ -58,24 +58,3 @@ const userResolvers: IResolvers<UserResolvers> = {
 };
 
 export default userResolvers;
-
-/*
-updateUser: async (_, {input}) => {
-            try {
-                const {id, email, password} = input
-                return await User.findByIdAndUpdate(id, {email, password}, {new: true})
-            } catch (error) {
-                console.error(`updateUser error : ${error}`)
-                throw error
-            }
-        },
-        deleteUser: async (_, {id}) => {
-            try {
-                return await User.findByIdAndRemove(id)
-            } catch (error) {
-                console.error(`deleteUser error : ${error}`)
-                throw error
-            }
-        },
-    }
- */

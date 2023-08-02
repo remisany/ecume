@@ -5,7 +5,7 @@ const loginTypeDefs = gql`
     code: String!
     token: String
   }
-  
+    
   type Mutation {
     login(email: String!, password: String!): LoginResponse
   }

@@ -14,6 +14,7 @@ const userSchema: Schema<IUser> = new Schema<IUser>({
     password: {type: String, required: true},
     hasChangePassword: {type: Boolean, default: false},
     notes: [{type: Schema.Types.ObjectId, ref: 'Note'}],
+    projects: [{type: Schema.Types.ObjectId, ref: 'Project'}],
 })
 
 const User: Model<IUser> = model<IUser, Model<IUser>>('User', userSchema);

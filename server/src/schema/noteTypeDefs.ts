@@ -3,10 +3,17 @@ import gql from "graphql-tag";
 const noteTypeDefs = gql`
   type Note {
     id: ID!
-    user: User!
-    date: String!
-    content: String!
-    title: String!
+    title: String
+    content: String! | Buffer!
+    create: Date!
+    update: Date
+    user: ID!
+    project: ID
+    type: String!
+    inspiration: String!
+  }
+    
+  type Mutation {
   }
 `;
 

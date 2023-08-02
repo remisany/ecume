@@ -9,7 +9,7 @@ import token from "../constants/token";
 import User from "../models/User";
 
 //import interfaces
-import {IUser} from "../interfaces/userInterface";
+import {IUser, IUserToken} from "../interfaces/userInterface";
 
 //import constants
 import transporter from "../constants/transporter";
@@ -55,11 +55,9 @@ const passwordResolvers: IResolvers = {
                 const user = await User.findByIdAndUpdate(authToken.id, {$set: {password: data.password, hasChangePassword: true}}) as IUser | null
 
                 if (user !== null) {
-                    const newUser: IUser = {
+                    const newUser: IUserToken = {
                         _id: user._id,
                         email: user.email,
-                        password: "",
-                        notes: [],
                         hasChangePassword: true
                     }
 

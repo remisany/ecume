@@ -5,7 +5,7 @@ const passwordTypeDefs = gql`
     code: String!
     token: String
   }
-
+  
   type ForgotResponse {
     code: String!
   }
