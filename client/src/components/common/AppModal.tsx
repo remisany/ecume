@@ -1,77 +1,71 @@
-import React from "react";
-import {Modal, StyleSheet, Text, View} from "react-native";
-
-//import component
-import Submit from "./Submit";
+import React, {forwardRef, ForwardRefExoticComponent, useCallback, useMemo} from "react";
+import {StyleSheet, Text, View} from "react-native";
+import {BottomSheetBackdrop, BottomSheetModal} from "@gorhom/bottom-sheet";
 
 //import constants
 import styleConstants from "../../constants/styleConstants";
 
+//import components
+import Border from "./Border";
+import BottomSheetLink from "./BottomSheetLink";
+
+//import interfaces
+import {IModalCustomStyle} from "../../interfaces/modalInterface";
+
 interface IAppModal {
     text: string
-    onClose: Function
-    onPress?: Function
-    onLongPress?: Function
+    accept?: Function
+    acceptLong?: Function
+    refuse?: Function
     subtitle?: string
 }
 
-const AppModal: React.FC<IAppModal> = ({text, onPress, onClose, onLongPress, subtitle}) => {
-    return (
-        <Modal animationType="slide" transparent={true}>
-            <View style={styles.modal}>
-                <View>
-                    <Text style={styles.text}>{text}</Text>
-                    {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
-                </View>
+const AppModal: ForwardRefExoticComponent<IAppModal> = forwardRef(({text, accept, acceptLong, refuse, subtitle}, ref) => {
+    const snapPoints = useMemo(() => ['5%', '25%'], [])
 
-                <View style={styles.btnContainer}>
-                    <Submit title="Non" onPress={onClose} customStyle={{backgroundColor: styleConstants.colors.orange, width: 45, marginTop: 0, marginRight: 5}}/>
-                    <Submit
-                        title="Oui"
-                        onPress={onPress && onPress}
-                        onLongPress={onLongPress && onLongPress}
-                        customStyle={{width: 45, marginTop: 0, marginLeft: 5}}
-                    />
-                </View>
+    const renderBackdrop = useCallback((props) => <BottomSheetBackdrop {...props} />, []);
+
+    const acceptCustomStyle: IModalCustomStyle = {
+        styleText: {color: styleConstants.colors.orange},
+        styleIcon: styleConstants.colors.orange
+    }
+
+    return (
+        <BottomSheetModal
+            ref={ref}
+            index={1}
+            snapPoints={snapPoints}
+            backdropComponent={renderBackdrop}
+        >
+            <View style={styles.contentContainer}>
+                <Text style={styles.title}>{text}</Text>
+                {subtitle && <Text style={styles.subtitle}>{subtitle}</Text>}
+                <Border/>
+                <BottomSheetLink onPress={accept && accept} onLongPress={acceptLong && acceptLong} icon='checkmark-circle' title="Accepter" customStyle={acceptCustomStyle}/>
+                <Border/>
+                <BottomSheetLink onPress={refuse && refuse} icon='close-circle' title="Refuser"/>
+                <Border/>
             </View>
-        </Modal>
+        </BottomSheetModal>
     )
-}
+})
 
 export default AppModal;
 
 const styles = StyleSheet.create({
-    modal: {
-        backgroundColor: styleConstants.colors.white,
-        borderRadius: 5,
-        position: 'absolute',
-        alignSelf: 'center',
-        bottom: 60,
-        paddingTop: 10,
-        paddingHorizontal: 10,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        flexDirection: "row",
-        shadowOffset: { width: 0, height: 0 },
-        shadowOpacity: 0.1,
-        shadowRadius: 5,
-        elevation: 2,
-        width: 340,
+    contentContainer: {
+        flex: 1,
+        alignItems: 'center',
     },
-    btnContainer: {
-        display: "flex",
-        flexDirection: "row",
-        justifyContent: "center"
-    },
-    text: {
+    title: {
         fontFamily: styleConstants.family.bold,
-        marginTop: -7,
-        fontSize: styleConstants.size.regular
-
+        fontSize: 20,
+        marginBottom: 10
     },
     subtitle: {
+        fontSize: styleConstants.size.small,
         fontFamily: styleConstants.family.light,
-        fontSize: styleConstants.size.small
+        marginTop: -10,
+        marginBottom: 10
     }
 })

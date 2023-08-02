@@ -1,34 +1,32 @@
-import React from "react";
+import React, {forwardRef, ForwardRefExoticComponent} from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation} from "@react-navigation/native";
 
 //import component
 import AppModal from "../common/AppModal";
+
+//import constants
 import toastConstants from "../../constants/toastConstants";
 
-interface IExit {
-    setModal: Function
-}
-
-const Exit: React.FC<IExit> = ({setModal}) => {
+const Exit: ForwardRefExoticComponent<{}> = forwardRef((_, ref) => {
     const navigation = useNavigation()
 
-    const onPress = () => {
-        setModal("")
+    const accept = () => {
         AsyncStorage.clear()
         navigation.navigate('connexion')
         toastConstants.success("À bientôt !", "Vous êtes maintenant déconnecté")
     }
 
-    const onClose = () => setModal("")
+    const refuse = () => ref.current?.close()
 
     return (
         <AppModal
-            onPress={onPress}
-            onClose={onClose}
+            accept={accept}
+            refuse={refuse}
             text="Se déconnecter ?"
+            ref={ref}
         />
     )
-}
+})
 
 export default Exit;

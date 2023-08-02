@@ -18,6 +18,7 @@ import apolloClient from "./src/server/apolloClient";
 
 //import constants
 import toastConstants from "./src/constants/toastConstants";
+import {GestureHandlerRootView} from "react-native-gesture-handler";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,16 +39,18 @@ const App: React.FC = () => {
 
     return (
         <ApolloProvider client={apolloClient}>
-            <NavigationContainer>
-                <Stack.Navigator screenOptions={{headerShown: false}}>
-                    <Stack.Screen name="connecte" component={LoggedInScreen}/>
-                    <Stack.Screen name="definition" component={PasswordScreen}/>
-                    <Stack.Screen name="connexion" component={LoginScreen}/>
-                    <Stack.Screen name="inscription" component={SignupScreen}/>
-                    <Stack.Screen name="recuperation" component={ForgotScreen}/>
-                </Stack.Navigator>
-            </NavigationContainer>
-            <Toast config={toastConstants.config}/>
+            <GestureHandlerRootView style={{ flex: 1 }}>
+                <NavigationContainer>
+                    <Stack.Navigator screenOptions={{headerShown: false}}>
+                        <Stack.Screen name="connecte" component={LoggedInScreen}/>
+                        <Stack.Screen name="definition" component={PasswordScreen}/>
+                        <Stack.Screen name="connexion" component={LoginScreen}/>
+                        <Stack.Screen name="inscription" component={SignupScreen}/>
+                        <Stack.Screen name="recuperation" component={ForgotScreen}/>
+                    </Stack.Navigator>
+                </NavigationContainer>
+                <Toast config={toastConstants.config}/>
+            </GestureHandlerRootView>
         </ApolloProvider>
     )
 }

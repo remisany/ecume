@@ -1,6 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {MutableRefObject, useCallback, useEffect, useRef, useState} from "react";
 import {StyleSheet, Text, View} from "react-native";
 import {useNavigation} from "@react-navigation/native";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 //import constants
 import storageConstants from "../../constants/storageConstants";
@@ -17,7 +18,10 @@ import Trash from "../../components/profile/Trash";
 
 const ProfileScreen: React.FC = () => {
     const [user, setUser] = useState<string | null>(null)
-    const [modal, setModal] = useState<string>("")
+
+    const bSMExitRef = useRef<BottomSheetModal>(null)
+    const bSMTrashRef = useRef<BottomSheetModal>(null)
+    const handlePresentModalPress = useCallback((ref: MutableRefObject<BottomSheetModal>) => ref.current?.present(), [])
 
     const navigation = useNavigation()
 
@@ -40,12 +44,12 @@ const ProfileScreen: React.FC = () => {
 
             <View style={styles.iconContainer}>
                 <IconButton name="key" onPress={() => navigation.navigate("definition")}/>
-                <IconButton name="exit" onPress={() => setModal("exit")}/>
-                <IconButton name="trash" onPress={() => setModal("trash")} customStyle={{backgroundColor: styleConstants.colors.orange}}/>
+                <IconButton name="exit" onPress={() => handlePresentModalPress(bSMExitRef)}/>
+                <IconButton name="trash" onPress={() => handlePresentModalPress(bSMTrashRef)} customStyle={{backgroundColor: styleConstants.colors.orange}}/>
             </View>
 
-            {modal === "exit" && <Exit setModal={setModal}/>}
-            {modal === "trash" && <Trash setModal={setModal}/>}
+            <Exit ref={bSMExitRef}/>
+            <Trash ref={bSMTrashRef}/>
         </View>
     )
 }
@@ -90,6 +94,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         position: "absolute",
         alignSelf: "center",
-        bottom: 20,
+        bottom: 50,
     }
 })

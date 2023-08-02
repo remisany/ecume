@@ -1,11 +1,10 @@
 import * as React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import {Pressable, StyleProp, StyleSheet, View} from "react-native";
+import {Pressable, StyleProp, StyleSheet} from "react-native";
+import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import components
-import Icon from "./Icon";
 import styleConstants from "../../constants/styleConstants";
-import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 interface IIconButton {
     name: keyof typeof Ionicons.glyphMap

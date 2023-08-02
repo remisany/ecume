@@ -35,11 +35,17 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createProject: CreateProjectResponse;
   createUser: MutationResponse;
   definePassword?: Maybe<DefineResponse>;
   deleteUser: MutationResponse;
   forgotPassword?: Maybe<ForgotResponse>;
   login?: Maybe<LoginResponse>;
+};
+
+
+export type MutationCreateProjectArgs = {
+  title: Scalars['String']['input'];
 };
 
 
@@ -68,23 +74,16 @@ export type MutationResponse = {
   code: Scalars['String']['output'];
 };
 
-export type Note = {
-  __typename?: 'Note';
-  content: Scalars['String']['output'];
-  date: Scalars['String']['output'];
-  id: Scalars['ID']['output'];
+export type Project = {
+  __typename?: 'Project';
+  _id: Scalars['ID']['output'];
   title: Scalars['String']['output'];
-  user: User;
 };
 
 export type Query = {
   __typename?: 'Query';
-  getUser?: Maybe<User>;
-};
-
-
-export type QueryGetUserArgs = {
-  id: Scalars['ID']['input'];
+  _dummy?: Maybe<Scalars['String']['output']>;
+  findProject: FindProjectResponse;
 };
 
 export type User = {
@@ -92,8 +91,20 @@ export type User = {
   email: Scalars['String']['output'];
   hasChangePassword: Scalars['Boolean']['output'];
   id: Scalars['ID']['output'];
-  notes?: Maybe<Array<Maybe<Note>>>;
-  password: Scalars['String']['output'];
+  notes?: Maybe<Array<Maybe<Scalars['ID']['output']>>>;
+  project?: Maybe<Array<Maybe<Scalars['ID']['output']>>>;
+};
+
+export type CreateProjectResponse = {
+  __typename?: 'createProjectResponse';
+  _id: Scalars['ID']['output'];
+  code: Scalars['String']['output'];
+};
+
+export type FindProjectResponse = {
+  __typename?: 'findProjectResponse';
+  code: Scalars['String']['output'];
+  projects?: Maybe<Array<Maybe<Project>>>;
 };
 
 export type DefinePasswordMutationVariables = Exact<{

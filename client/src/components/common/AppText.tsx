@@ -1,12 +1,19 @@
 import * as React from "react";
-import {StyleSheet, Text} from "react-native";
+import {StyleProp, StyleSheet, Text} from "react-native";
 
 //import constants
 import styleConstants from "../../constants/styleConstants";
+import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
+import {JSX} from "react";
 
-const AppText: React.FC = ({children}) => {
+interface IAppText {
+    children: JSX.Element | string
+    customStyle?: StyleProp<ViewStyle>
+}
+
+const AppText: React.FC<IAppText> = ({children, customStyle}) => {
     return (
-        <Text style={styles.text}>{children}</Text>
+        <Text style={[styles.text, customStyle]}>{children}</Text>
     )
 }
 

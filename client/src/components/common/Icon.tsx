@@ -15,7 +15,7 @@ const Icon: React.FC<IIcon> = ({name}) => {
     const full: keyof typeof Ionicons.glyphMap = name.replace("-outline", "") as keyof typeof Ionicons.glyphMap
 
     return (
-        <Ionicons name={navigation.isFocused() ? full : name} color={styleConstants.colors.yellow} size={25}/>
+        <Ionicons name={navigation.isFocused() ? full : name} color={styleConstants.colors.black} size={25}/>
     )
 }
 

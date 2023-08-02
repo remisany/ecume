@@ -1,6 +1,6 @@
 import Input from "../components/common/Input";
 
-const InputPattern = ({control, errors, hasSubmit, name, placeholder}) => {
+export const InputPattern = ({control, errors, hasSubmit, name, placeholder}) => {
     return (
         <Input
             control={control}
@@ -39,7 +39,7 @@ const password = (control, errors, hasSubmit) => {
 
 const input = {
     email: email,
-    password: password
+    password: password,
 }
 
 export default input

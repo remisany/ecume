@@ -1,12 +1,19 @@
 import * as React from "react";
-import {Text, View} from "react-native";
+import {StyleSheet, Text, View} from "react-native";
+import Create from "../../components/header/Create";
 
 const HomeScreen: React.FC = () => {
     return (
-        <View>
+        <View style={styles.container}>
             <Text>Accueil</Text>
         </View>
     )
 }
 
 export default HomeScreen;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+    },
+});
