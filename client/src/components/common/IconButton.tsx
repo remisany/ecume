@@ -1,6 +1,6 @@
 import * as React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import {Pressable, StyleProp, StyleSheet} from "react-native";
+import {Pressable, StyleProp, StyleSheet, TouchableOpacity} from "react-native";
 import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import components
@@ -14,9 +14,9 @@ interface IIconButton {
 
 const IconButton: React.FC<IIconButton> = ({name, onPress, customStyle}) => {
     return (
-        <Pressable style={[styles.container, customStyle]} onPress={onPress}>
+        <TouchableOpacity style={[styles.container, customStyle]} onPress={onPress}>
             <Ionicons name={name} color={styleConstants.colors.white} size={25}/>
-        </Pressable>
+        </TouchableOpacity>
     )
 }
 

@@ -4,10 +4,16 @@ import {Schema, model, Model} from 'mongoose';
 import {INote} from "../interfaces/noteInterface";
 
 const noteSchema: Schema<INote> = new Schema<INote>({
+    _id: {type: Schema.Types.ObjectId, auto: true},
     title: {type: String, required: true},
-    content: {type: Schema.Types.Mixed, required: true},
-    date: {type: Date, default: Date.now, required: true},
-    user: {type: Schema.Types.ObjectId, ref: 'User', required: true},
+    content: {type: String},
+    uri: {type: String},
+    createdAt: {type: Date, default: Date.now},
+    updatedAt: {type: Date, default: Date.now},
+    user: {type: Schema.Types.ObjectId, ref: 'User'},
+    project: {type: Schema.Types.ObjectId, ref: 'Project'},
+    type: {type: Number, required: true},
+    inspiration: {type: Number, required: true}
 })
 
 const Note: Model<INote> = model<INote, Model<INote>>('Note', noteSchema);

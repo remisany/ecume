@@ -16,6 +16,11 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type CreateNoteResponse = {
+  __typename?: 'CreateNoteResponse';
+  code: Scalars['String']['output'];
+};
+
 export type DefineResponse = {
   __typename?: 'DefineResponse';
   code: Scalars['String']['output'];
@@ -35,12 +40,18 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createNote: CreateNoteResponse;
   createProject: CreateProjectResponse;
   createUser: MutationResponse;
   definePassword?: Maybe<DefineResponse>;
   deleteUser: MutationResponse;
   forgotPassword?: Maybe<ForgotResponse>;
   login?: Maybe<LoginResponse>;
+};
+
+
+export type MutationCreateNoteArgs = {
+  input: NoteContent;
 };
 
 
@@ -72,6 +83,29 @@ export type MutationLoginArgs = {
 export type MutationResponse = {
   __typename?: 'MutationResponse';
   code: Scalars['String']['output'];
+};
+
+export type Note = {
+  __typename?: 'Note';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  inspiration: Scalars['Int']['output'];
+  project?: Maybe<Scalars['ID']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['Int']['output'];
+  updatedAt: Scalars['String']['output'];
+  uri?: Maybe<Scalars['String']['output']>;
+  user: Scalars['ID']['output'];
+};
+
+export type NoteContent = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  inspiration: Scalars['Int']['input'];
+  project?: InputMaybe<Scalars['ID']['input']>;
+  title: Scalars['String']['input'];
+  type: Scalars['Int']['input'];
 };
 
 export type Project = {
@@ -179,12 +213,16 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']['output']>;
+  CreateNoteResponse: ResolverTypeWrapper<CreateNoteResponse>;
   DefineResponse: ResolverTypeWrapper<DefineResponse>;
   ForgotResponse: ResolverTypeWrapper<ForgotResponse>;
   ID: ResolverTypeWrapper<Scalars['ID']['output']>;
+  Int: ResolverTypeWrapper<Scalars['Int']['output']>;
   LoginResponse: ResolverTypeWrapper<LoginResponse>;
   Mutation: ResolverTypeWrapper<{}>;
   MutationResponse: ResolverTypeWrapper<MutationResponse>;
+  Note: ResolverTypeWrapper<Note>;
+  NoteContent: NoteContent;
   Project: ResolverTypeWrapper<Project>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']['output']>;
@@ -196,18 +234,27 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean']['output'];
+  CreateNoteResponse: CreateNoteResponse;
   DefineResponse: DefineResponse;
   ForgotResponse: ForgotResponse;
   ID: Scalars['ID']['output'];
+  Int: Scalars['Int']['output'];
   LoginResponse: LoginResponse;
   Mutation: {};
   MutationResponse: MutationResponse;
+  Note: Note;
+  NoteContent: NoteContent;
   Project: Project;
   Query: {};
   String: Scalars['String']['output'];
   User: User;
   createProjectResponse: CreateProjectResponse;
   findProjectResponse: FindProjectResponse;
+};
+
+export type CreateNoteResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['CreateNoteResponse'] = ResolversParentTypes['CreateNoteResponse']> = {
+  code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
 export type DefineResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DefineResponse'] = ResolversParentTypes['DefineResponse']> = {
@@ -228,6 +275,7 @@ export type LoginResponseResolvers<ContextType = any, ParentType extends Resolve
 };
 
 export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  createNote?: Resolver<ResolversTypes['CreateNoteResponse'], ParentType, ContextType, RequireFields<MutationCreateNoteArgs, 'input'>>;
   createProject?: Resolver<ResolversTypes['createProjectResponse'], ParentType, ContextType, RequireFields<MutationCreateProjectArgs, 'title'>>;
   createUser?: Resolver<ResolversTypes['MutationResponse'], ParentType, ContextType, RequireFields<MutationCreateUserArgs, 'email'>>;
   definePassword?: Resolver<Maybe<ResolversTypes['DefineResponse']>, ParentType, ContextType, RequireFields<MutationDefinePasswordArgs, 'password'>>;
@@ -238,6 +286,20 @@ export type MutationResolvers<ContextType = any, ParentType extends ResolversPar
 
 export type MutationResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['MutationResponse'] = ResolversParentTypes['MutationResponse']> = {
   code?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type NoteResolvers<ContextType = any, ParentType extends ResolversParentTypes['Note'] = ResolversParentTypes['Note']> = {
+  content?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  createdAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
+  inspiration?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  project?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>;
+  title?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  type?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  updatedAt?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
+  uri?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  user?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 };
 
@@ -274,11 +336,13 @@ export type FindProjectResponseResolvers<ContextType = any, ParentType extends R
 };
 
 export type Resolvers<ContextType = any> = {
+  CreateNoteResponse?: CreateNoteResponseResolvers<ContextType>;
   DefineResponse?: DefineResponseResolvers<ContextType>;
   ForgotResponse?: ForgotResponseResolvers<ContextType>;
   LoginResponse?: LoginResponseResolvers<ContextType>;
   Mutation?: MutationResolvers<ContextType>;
   MutationResponse?: MutationResponseResolvers<ContextType>;
+  Note?: NoteResolvers<ContextType>;
   Project?: ProjectResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   User?: UserResolvers<ContextType>;

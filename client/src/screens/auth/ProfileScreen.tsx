@@ -26,7 +26,7 @@ const ProfileScreen: React.FC = () => {
     const navigation = useNavigation()
 
     useEffect(() => {
-        storageConstants.get(true).then(response => {
+        storageConstants.token(true).then(response => {
             const token = response as IToken
             setUser(token.email)
         })

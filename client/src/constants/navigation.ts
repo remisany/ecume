@@ -1,7 +1,7 @@
 import storageConstants from "./storageConstants";
 
 const navigation = (navigation, destination) => {
-    storageConstants.get(true).then(token => {
+    storageConstants.token(true).then(token => {
         console.log("ok")
         if (token === null) {
             console.log('1')

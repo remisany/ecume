@@ -16,13 +16,13 @@ import {CreateProjectFormData} from "../../interfaces/formsInterface";
 
 //import mutations
 import {CREATE_PROJECT} from "../../server/mutations";
+import storageConstants from "../../constants/storageConstants";
 
 interface ICreateProjectForm {
     setFetchProject: Function
-    setProject: Function
 }
 
-const CreateProjectForm: ForwardRefExoticComponent<ICreateProjectForm> = forwardRef(({setFetchProject, setProject}, ref) => {
+const CreateProjectForm: ForwardRefExoticComponent<ICreateProjectForm> = forwardRef(({setFetchProject}, ref) => {
         const [createProject] = useMutation(CREATE_PROJECT);
 
         const [hasSubmit, setHasSubmit] = useState<boolean>(false)
@@ -35,7 +35,7 @@ const CreateProjectForm: ForwardRefExoticComponent<ICreateProjectForm> = forward
             createProject({variables: {title: values.title as string}}).then(({data}) => {
                 if (data.createProject.code === "202") {
                     setFetchProject(prevState => !prevState)
-                    setProject(data.createProject._id)
+                    storageConstants.set("project", data.createProject._id)
                     ref.current?.close()
                 }
             })

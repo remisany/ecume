@@ -4,7 +4,7 @@ import {NavigationProp} from "@react-navigation/native";
 import storageConstants from "./storageConstants";
 
 const loginSuccess = (token: String, navigation: NavigationProp<ReactNavigation.RootParamList>) => {
-    storageConstants.set(token)
+    storageConstants.set('token', token)
     navigation.navigate('connecte')
 }
 

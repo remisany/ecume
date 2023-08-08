@@ -10,11 +10,11 @@ import styleConstants from "../../constants/styleConstants";
 import CreateNoteForm from "../forms/CreateNoteForm";
 
 const Create: React.FC = () => {
-    const bottomSheetModalRef = useRef<BottomSheetModal>(null)
+    const bSMRef = useRef<BottomSheetModal>(null)
 
     const snapPoints = useMemo(() => ['5%', '75%'], [])
 
-    const handlePresentModalPress = useCallback(() => bottomSheetModalRef.current?.present(), [])
+    const handlePresentModalPress = useCallback(() => bSMRef.current?.present(), [])
 
     const renderBackdrop = useCallback((props) => <BottomSheetBackdrop {...props} />, []);
 
@@ -24,14 +24,14 @@ const Create: React.FC = () => {
                 <Ionicons name="add-circle-sharp" color={styleConstants.colors.black} size={35}/>
             </Pressable>
             <BottomSheetModal
-                ref={bottomSheetModalRef}
+                ref={bSMRef}
                 index={1}
                 snapPoints={snapPoints}
                 backdropComponent={renderBackdrop}
             >
                 <View style={styles.contentContainer}>
                     <Text style={styles.title}>Créer</Text>
-                    <CreateNoteForm/>
+                    <CreateNoteForm ref={bSMRef}/>
                 </View>
             </BottomSheetModal>
         </View>

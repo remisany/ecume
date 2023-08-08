@@ -1,5 +1,6 @@
-import React, {useState} from 'react'
+import React, {forwardRef, ForwardRefExoticComponent, useState} from 'react'
 import {View} from 'react-native'
+import {useNavigation} from "@react-navigation/native";
 
 //import constants
 import pickerConstants from "../../constants/pickerConstants";
@@ -10,15 +11,20 @@ import AppPicker from "../common/AppPicker";
 import ProjectDropdown from "../header/ProjectDropdown";
 import TypeCreation from "../header/TypeCreation";
 
-const CreateNoteForm: React.FC = () => {
+const CreateNoteForm: ForwardRefExoticComponent<{}> = forwardRef(({}, ref) => {
+    const navigation = useNavigation()
+
     const [type, setType] = useState<number>(0)
     const [inspiration, setInspiration] = useState<number>(pickerConstants.inspiration[0].value)
     const [project, setProject] = useState<string>("")
 
     const onSubmit = () => {
-        console.log(type)
-        console.log(inspiration)
-        console.log(project)
+        ref.current?.close()
+        navigation.navigate("creation", {
+            type: type,
+            inspiration: inspiration,
+            project: project
+        })
     }
 
     return (
@@ -30,6 +36,6 @@ const CreateNoteForm: React.FC = () => {
             <Submit title="Créer" onPress={onSubmit}/>
         </View>
     )
-}
+})
 
 export default CreateNoteForm;

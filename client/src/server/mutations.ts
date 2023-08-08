@@ -8,3 +8,11 @@ export const CREATE_PROJECT = gql`
     }
   }
 `;
+
+export const CREATE_NOTE = gql`
+  mutation CreateNote($input: NoteContent!) {
+    createNote(input: $input) {
+        code
+    }
+  }
+`;

@@ -1,6 +1,7 @@
 import React from "react";
 import {useCallback, useState} from "react";
 import {useFocusEffect, useNavigation, useRoute} from '@react-navigation/native';
+import {BottomSheetModalProvider} from "@gorhom/bottom-sheet";
 
 //import constants
 import storageConstants from "../../constants/storageConstants";
@@ -18,7 +19,7 @@ const AuthScreen: React.FC = ({children}) => {
         useCallback(() => {
             setLoading(true)
 
-            storageConstants.get(true).then(token => {
+            storageConstants.token(true).then(token => {
                 if (token === null) {
                     return navigation.navigate('connexion')
                 }
@@ -35,7 +36,7 @@ const AuthScreen: React.FC = ({children}) => {
     );
 
     return (
-        !loading && children
+        !loading && <BottomSheetModalProvider>{children}</BottomSheetModalProvider>
     )
 }
 

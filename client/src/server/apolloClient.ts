@@ -12,7 +12,7 @@ const httpLink = createHttpLink({
 });
 
 const authLink = setContext(async (_, { headers }) => {
-    const token = await storageConstants.get();
+    const token = await storageConstants.token();
 
     return {
         headers: {

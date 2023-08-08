@@ -8,7 +8,7 @@ import passwordTypeDefs from "./passwordTypeDefs";
 import projectTypeDefs from "./projectTypeDefs";
 
 const typeDefs = mergeTypeDefs([
-    userTypeDefs, loginTypeDefs, passwordTypeDefs, projectTypeDefs
+    userTypeDefs, noteTypeDefs, loginTypeDefs, passwordTypeDefs, projectTypeDefs
 ]);
 
 export default typeDefs;

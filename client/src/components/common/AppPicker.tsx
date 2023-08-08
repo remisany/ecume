@@ -28,7 +28,7 @@ const AppPicker: React.FC<IAppPicker> = ({title, items, value, setValue}) => {
             <Dropdown
                 style={[styles.dropdown, isFocus && {borderColor: styleConstants.colors.yellow}]}
                 data={items}
-                maxHeight={280}
+                maxHeight={250}
                 labelField="label"
                 valueField="value"
                 value={value}

@@ -16,6 +16,11 @@ export type Scalars = {
   Float: { input: number; output: number; }
 };
 
+export type CreateNoteResponse = {
+  __typename?: 'CreateNoteResponse';
+  code: Scalars['String']['output'];
+};
+
 export type DefineResponse = {
   __typename?: 'DefineResponse';
   code: Scalars['String']['output'];
@@ -35,12 +40,18 @@ export type LoginResponse = {
 
 export type Mutation = {
   __typename?: 'Mutation';
+  createNote: CreateNoteResponse;
   createProject: CreateProjectResponse;
   createUser: MutationResponse;
   definePassword?: Maybe<DefineResponse>;
   deleteUser: MutationResponse;
   forgotPassword?: Maybe<ForgotResponse>;
   login?: Maybe<LoginResponse>;
+};
+
+
+export type MutationCreateNoteArgs = {
+  input: NoteContent;
 };
 
 
@@ -72,6 +83,29 @@ export type MutationLoginArgs = {
 export type MutationResponse = {
   __typename?: 'MutationResponse';
   code: Scalars['String']['output'];
+};
+
+export type Note = {
+  __typename?: 'Note';
+  content?: Maybe<Scalars['String']['output']>;
+  createdAt: Scalars['String']['output'];
+  id: Scalars['ID']['output'];
+  inspiration: Scalars['Int']['output'];
+  project?: Maybe<Scalars['ID']['output']>;
+  title: Scalars['String']['output'];
+  type: Scalars['Int']['output'];
+  updatedAt: Scalars['String']['output'];
+  uri?: Maybe<Scalars['String']['output']>;
+  user: Scalars['ID']['output'];
+};
+
+export type NoteContent = {
+  content?: InputMaybe<Scalars['String']['input']>;
+  image?: InputMaybe<Scalars['String']['input']>;
+  inspiration: Scalars['Int']['input'];
+  project?: InputMaybe<Scalars['ID']['input']>;
+  title: Scalars['String']['input'];
+  type: Scalars['Int']['input'];
 };
 
 export type Project = {

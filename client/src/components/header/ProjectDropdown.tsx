@@ -6,6 +6,7 @@ import {useQuery} from "@apollo/client";
 //import constants
 import styleConstants from "../../constants/styleConstants";
 import {concatProjects, defaultProjects} from "../../constants/projects";
+import storageConstants from "../../constants/storageConstants";
 
 //import components
 import AppPicker from "../common/AppPicker";
@@ -25,8 +26,16 @@ const ProjectDropdown: React.FC = ({project, setProject}) => {
     const backdrop = useCallback((props) => <BottomSheetBackdrop {...props} />, []);
     const handlePresentModalPress = useCallback(() => bSMRef.current?.present(), [])
 
+    const getProject = async () => {
+        const storageProject = await storageConstants.get("project")
+        if (storageProject !== null) {
+            setProject(storageProject)
+            storageConstants.remove("project")
+        }
+    }
+
     useEffect(() => {
-        console.log(`project : ${project}`)
+        getProject()
         project === "jvcunpe" && handlePresentModalPress()
     }, [project])
 
@@ -54,7 +63,7 @@ const ProjectDropdown: React.FC = ({project, setProject}) => {
             >
                 <View style={styles.contentContainer}>
                     <Text style={styles.title}>Créer un nouveau projet</Text>
-                    <CreateProjectForm setFetchProject={setFetchProject} setProject={setProject} ref={bSMRef}/>
+                    <CreateProjectForm setFetchProject={setFetchProject} ref={bSMRef}/>
                 </View>
             </BottomSheetModal>
         </View>

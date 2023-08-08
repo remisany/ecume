@@ -6,9 +6,9 @@ import verifyToken from "./token";
 //import interfaces
 import {IToken} from "../interfaces/tokenInterface";
 
-const set = async (token: string): Promise<boolean> => {
+const set = async (key: string, token: string): Promise<boolean> => {
     try {
-        await AsyncStorage.setItem("token", token)
+        await AsyncStorage.setItem(key, token)
         return true
     } catch (error) {
         console.log(`setAsyncStorage error :  ${error}`)
@@ -16,7 +16,25 @@ const set = async (token: string): Promise<boolean> => {
     }
 }
 
-const get = async (decrypt?: boolean): Promise<string | null | IToken> => {
+const get = async (key: string) => {
+    try {
+        return await AsyncStorage.getItem("project")
+    } catch (error) {
+        console.log(`getAsyncStorage error :  ${error}`)
+    }
+}
+
+const remove = async (key: string): Promise<boolean> => {
+    try {
+        await AsyncStorage.removeItem(key)
+        return true
+    } catch (error) {
+        console.log(`removeAsyncStorage error :  ${error}`)
+        return false
+    }
+}
+
+const token = async (decrypt?: boolean): Promise<string | null | IToken> => {
     try {
         const token = await AsyncStorage.getItem("token")
 
@@ -32,7 +50,9 @@ const get = async (decrypt?: boolean): Promise<string | null | IToken> => {
 
 const storageConstants = {
     set: set,
-    get: get
+    get: get,
+    remove: remove,
+    token: token
 }
 
 export default storageConstants;
