@@ -4,19 +4,21 @@ import {Dimensions, Image, StyleSheet, TouchableOpacity, View} from 'react-nativ
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 //import components
-import Permission from "../../components/common/Permission";
+import Permission from "../common/Permission";
 import styleConstants from "../../constants/styleConstants";
-import IconButton from "../../components/common/IconButton";
+import IconButton from "../buttons/IconButton";
+import Loader from "../common/Loader";
 
 //import interface
-import {IPhotoContent} from "../../interfaces/noteInterfaces";
+import {IPictureContent} from "../../interfaces/noteInterfaces";
 
-interface IPhotoScreen {
+interface ICPicture {
     setContent: Function
-    content: IPhotoContent | null
+    content: IPictureContent | null
 }
 
-const PhotoScreen: React.FC<IPhotoScreen> = ({setContent, content}) => {
+const CPicture: React.FC<ICPicture> = ({setContent, content}) => {
+    const [loading, setLoading] = useState(false)
     const [type, setType] = useState(CameraType.back)
     const [flash, setFlash] = useState(FlashMode.off)
     const [permission, requestPermission] = Camera.useCameraPermissions()
@@ -41,12 +43,15 @@ const PhotoScreen: React.FC<IPhotoScreen> = ({setContent, content}) => {
     }
 
     const takePicture = async () => {
-        const {uri, base64} = await cameraRef.current.takePictureAsync({quality: 1, base64: true, exif: false})
+        setLoading(true)
+        const {uri, base64} = await cameraRef.current.takePictureAsync({quality: .7, base64: true, exif: false})
         setContent({uri: uri, image: base64})
+        setLoading(false)
      }
 
     return (
         <View style={styles.container}>
+            {loading && <Loader/>}
             {content !== null ?
                 <>
                     <Image source={{uri: content.uri}} style={{width: windowWidth, height: windowWidth}}/>
@@ -72,7 +77,7 @@ const PhotoScreen: React.FC<IPhotoScreen> = ({setContent, content}) => {
     )
 }
 
-export default PhotoScreen;
+export default CPicture;
 
 const styles = StyleSheet.create({
     container: {

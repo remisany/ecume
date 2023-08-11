@@ -9,7 +9,7 @@ import {concatProjects, defaultProjects} from "../../constants/projects";
 import storageConstants from "../../constants/storageConstants";
 
 //import components
-import AppPicker from "../common/AppPicker";
+import AppPicker from "../forms/AppPicker";
 import CreateProjectForm from "../forms/CreateProjectForm";
 
 //import queries

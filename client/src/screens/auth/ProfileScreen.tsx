@@ -12,7 +12,7 @@ import {IToken} from "../../interfaces/tokenInterface";
 
 //import components
 import AppText from "../../components/common/AppText";
-import IconButton from "../../components/common/IconButton";
+import IconButton from "../../components/buttons/IconButton";
 import Exit from "../../components/profile/Exit";
 import Trash from "../../components/profile/Trash";
 

@@ -6,7 +6,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import styleConstants from "../../constants/styleConstants";
 
 //import components
-import AppText from "./AppText";
+import AppText from "../common/AppText";
 
 //Import interface
 import {IModalCustomStyle} from "../../interfaces/modalInterface";

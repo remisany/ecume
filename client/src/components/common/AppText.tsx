@@ -1,10 +1,9 @@
-import * as React from "react";
+import React, {JSX} from "react";
 import {StyleProp, StyleSheet, Text} from "react-native";
+import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import constants
 import styleConstants from "../../constants/styleConstants";
-import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
-import {JSX} from "react";
 
 interface IAppText {
     children: JSX.Element | string

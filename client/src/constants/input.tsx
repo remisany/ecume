@@ -1,4 +1,4 @@
-import Input from "../components/common/Input";
+import Input from "../components/forms/Input";
 
 export const InputPattern = ({control, errors, hasSubmit, name, placeholder}) => {
     return (

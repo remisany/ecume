@@ -4,27 +4,29 @@ import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import {useMutation} from "@apollo/client";
 
 //import components
-import AuthScreen from "./AuthScreen";
-import TextScreen from "./TextScreen";
-import PhotoScreen from "./PhotoScreen";
+import AuthComponent from "../../components/common/Auth";
+import CText from "../../components/create/CText";
+import CPicture from "../../components/create/CPicture";
+import Loader from "../../components/common/Loader";
 
 //import constants
 import styleConstants from "../../constants/styleConstants";
+import toast from "../../constants/toastConstants";
 
 //import mutations
 import {CREATE_NOTE} from "../../server/mutations";
 
 //import interfaces
-import {IPhotoContent} from "../../interfaces/noteInterfaces";
+import {IPictureContent} from "../../interfaces/noteInterfaces";
 
 const CreateScreen: React.FC = ({route, navigation}) => {
-    const [createNote] = useMutation(CREATE_NOTE);
+    const [createNote, {loading}] = useMutation(CREATE_NOTE);
 
     const {type, inspiration, project} = route.params;
 
     const title = ["Texte", "Photographie", "Dessin"]
 
-    const [content, setContent] = useState<string | IPhotoContent | null>(null)
+    const [content, setContent] = useState<string | IPictureContent | null>(null)
 
     const submit = () => {
         const input = {
@@ -37,13 +39,14 @@ const CreateScreen: React.FC = ({route, navigation}) => {
 
         createNote({variables: {input}}).then(({data}) => {
             if (data.createNote.code === "202") {
-                console.log('validé')
+                toast.success("Note créé !", "Une note de plus dans votre collection.", navigation.goBack())
             }
         })
     }
 
     return (
-        <AuthScreen>
+        <AuthComponent>
+            {loading && <Loader/>}
             <View style={styles.container}>
                 <View style={styles.titleContainer}>
                     <TouchableOpacity onPress={() => navigation.navigate("connecte")}>
@@ -56,9 +59,9 @@ const CreateScreen: React.FC = ({route, navigation}) => {
                         </TouchableOpacity>}
                 </View>
 
-                {type === 0 ? <TextScreen setContent={setContent}/> : <PhotoScreen setContent={setContent} content={content as IPhotoContent}/>}
+                {type === 0 ? <CText setContent={setContent}/> : <CPicture setContent={setContent} content={content as IPictureContent}/>}
             </View>
-        </AuthScreen>
+        </AuthComponent>
     )
 }
 

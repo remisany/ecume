@@ -12,16 +12,17 @@ import CreateNoteForm from "../forms/CreateNoteForm";
 const Create: React.FC = () => {
     const bSMRef = useRef<BottomSheetModal>(null)
 
-    const snapPoints = useMemo(() => ['5%', '75%'], [])
+    const snapPoints = useMemo(() => ['8%', '75%'], [])
 
     const handlePresentModalPress = useCallback(() => bSMRef.current?.present(), [])
 
     const renderBackdrop = useCallback((props) => <BottomSheetBackdrop {...props} />, []);
 
     return (
-        <View>
-            <Pressable onPress={handlePresentModalPress}>
-                <Ionicons name="add-circle-sharp" color={styleConstants.colors.black} size={35}/>
+        <View style={styles.container}>
+            <Pressable onPress={handlePresentModalPress} style={styles.button}>
+                <View style={{backgroundColor: styleConstants.colors.white, position: "absolute", height: 35, width: 35}}></View>
+                <Ionicons name="add-circle-sharp" color={styleConstants.colors.yellow} size={70}/>
             </Pressable>
             <BottomSheetModal
                 ref={bSMRef}
@@ -42,8 +43,21 @@ const styles = StyleSheet.create({
     title: {
         fontFamily: styleConstants.family.bold,
         fontSize: 20,
-        marginBottom: 10,
         alignSelf: "center"
+    },
+    container: {
+        position: "absolute",
+        left: "50%",
+        marginLeft: -35,
+        marginTop: -37.5
+    },
+    button: {
+        //backgroundColor: "black",
+        height: 70,
+        width: 70,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
     },
     contentContainer: {
         paddingHorizontal: styleConstants.size.paddingContainer

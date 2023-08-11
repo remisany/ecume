@@ -9,7 +9,7 @@ import validation from "../../constants/validationConstant";
 import {InputPattern} from "../../constants/input";
 
 //import components
-import Submit from "../../components/common/Submit";
+import Submit from "../buttons/Submit";
 
 //import interfaces
 import {CreateProjectFormData} from "../../interfaces/formsInterface";

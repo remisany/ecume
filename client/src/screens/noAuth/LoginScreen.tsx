@@ -18,7 +18,7 @@ import loginSuccess from "../../constants/login";
 
 //import components
 import AppText from "../../components/common/AppText";
-import Submit from "../../components/common/Submit";
+import Submit from "../../components/buttons/Submit";
 
 //import interfaces
 import {LoginFormData} from "../../interfaces/formsInterface";

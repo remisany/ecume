@@ -9,6 +9,6 @@ export interface INote {
     updatedAt: Date
     user: Schema.Types.ObjectId
     project: Schema.Types.ObjectId
-    type: string
-    inspiration: string
+    type: number
+    inspiration: number
 }

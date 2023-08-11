@@ -4,7 +4,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import {Dropdown} from "react-native-element-dropdown";
 
 //import components
-import AppText from "./AppText";
+import AppText from "../common/AppText";
 
 //import interface
 import {IPickerItems} from "../../interfaces/pickerInterface";

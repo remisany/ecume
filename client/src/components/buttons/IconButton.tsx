@@ -1,6 +1,6 @@
-import * as React from "react";
+import React from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import {Pressable, StyleProp, StyleSheet, TouchableOpacity} from "react-native";
+import {StyleProp, StyleSheet, TouchableOpacity} from "react-native";
 import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import components

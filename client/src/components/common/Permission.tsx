@@ -3,7 +3,7 @@ import {StyleSheet, View} from "react-native";
 
 //import components
 import AppText from "../../components/common/AppText";
-import Submit from "../../components/common/Submit";
+import Submit from "../buttons/Submit";
 
 //import constants
 import styleConstants from "../../constants/styleConstants";

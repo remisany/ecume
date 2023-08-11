@@ -12,14 +12,11 @@ interface IRadioButton {
     value: number
 }
 
-const RadioButton: React.FC<IRadioButton> = ({icon, index, setValue, value}) => {
+const RadioIconButton: React.FC<IRadioButton> = ({icon, index, setValue, value}) => {
     return (
         <Pressable onPress={() => setValue(index)} style={styles.pressable}>
-            <View style={[styles.iconContainer, {
-                    backgroundColor: value === index ? styleConstants.colors.yellow : styleConstants.colors.white,
-                    borderColor: value === index ? styleConstants.colors.yellow : styleConstants.colors.black,
-                }]}>
-                <Ionicons name={icon} size={40} color={value === index ? styleConstants.colors.white : styleConstants.colors.black}/>
+            <View style={styles.iconContainer}>
+                <Ionicons name={icon} size={40} color={value === index ? styleConstants.colors.yellow: styleConstants.colors.black}/>
             </View>
         </Pressable>
     )
@@ -33,13 +30,12 @@ const styles = StyleSheet.create({
     iconContainer: {
         height: 50,
         width: 50,
-        borderWidth: 1,
         borderRadius: 5,
-        marginHorizontal: 10,
+        marginHorizontal: 15,
         display: "flex",
         alignItems: "center",
         justifyContent: "center"
     }
 });
 
-export default RadioButton;
+export default RadioIconButton;

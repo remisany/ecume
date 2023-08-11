@@ -17,7 +17,7 @@ import toast from "../../constants/toastConstants";
 
 //import components
 import AppText from "../../components/common/AppText";
-import Submit from "../../components/common/Submit";
+import Submit from "../../components/buttons/Submit";
 
 //import interfaces
 import {SignupFormData} from "../../interfaces/formsInterface";

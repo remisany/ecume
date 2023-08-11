@@ -12,8 +12,8 @@ const noteSchema: Schema<INote> = new Schema<INote>({
     updatedAt: {type: Date, default: Date.now},
     user: {type: Schema.Types.ObjectId, ref: 'User'},
     project: {type: Schema.Types.ObjectId, ref: 'Project'},
-    type: {type: Number, required: true},
-    inspiration: {type: Number, required: true}
+    type: {type: Schema.Types.Number, required: true},
+    inspiration: {type: Schema.Types.Number, required: true}
 })
 
 const Note: Model<INote> = model<INote, Model<INote>>('Note', noteSchema);

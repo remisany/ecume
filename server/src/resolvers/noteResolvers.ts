@@ -1,36 +1,47 @@
 import {IResolvers} from "@graphql-tools/utils"
 import {GraphQLError} from "graphql";
-import * as admin from "firebase-admin";
 
 //import constants
 import generatePassword from "../constants/password";
-import * as serviceAccount from "../firebase/serviceAccountKey.json";
+
+//import models
+import Note from "../models/Note";
+
+//import firebase
+import appFirebase from "../firebase/firebase-config";
 
 const noteResolvers: IResolvers = {
     Mutation: {
         createNote: async (_, {input}, {authToken}) => {
             try {
-                const app = await admin.initializeApp({
-                    credential: admin.credential.cert(serviceAccount as admin.ServiceAccount),
-                    storageBucket: "gs://ecume-5310b.appspot.com/"
-                })
+                const newNote = {
+                    title: input.title,
+                    type: input.type,
+                    inspiration: input.inspiration,
+                    user: authToken.id,
+                    ...input.project && {project: input.project},
+                }
 
-                const bucket = await app.storage().bucket()
+                if (input.type === 0) {
+                    await Note.create({...newNote, content: input.content});
+                } else {
+                    const bucket = appFirebase.storage().bucket()
+                    const imageBuffer = Buffer.from(input.image, 'base64')
+                    const imageName = `${input.title.replace(" ", "").toLowerCase()}_${generatePassword()}.jpg`
 
-                const imageBuffer = Buffer.from(input.image, 'base64')
-                const imageName = `${input.title.replace(" ", "").toLowerCase()}_${generatePassword()}.jpg`
+                    const file = bucket.file(imageName);
+                    await file.save(imageBuffer);
 
-                const file = await bucket.file(imageName);
-                await file.save(imageBuffer);
+                    const imageURL = await file.getSignedUrl({action: 'read', expires: '01-01-2500'})
 
-                const imageURL = await file.getSignedUrl({action: 'read', expires: '',});
-                console.log(imageURL)
+                    await Note.create({...newNote, uri: imageURL[0]})
+                }
 
                 return {code: "202"}
             } catch {
                 throw new GraphQLError('error', {extensions: {http: {status: 500}}})
             }
-        },
+        }
     }
 };
 

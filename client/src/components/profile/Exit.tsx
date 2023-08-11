@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation} from "@react-navigation/native";
 
 //import component
-import AppModal from "../common/AppModal";
+import AppModal from "../modal/AppModal";
 
 //import constants
 import toastConstants from "../../constants/toastConstants";

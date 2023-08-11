@@ -4,14 +4,10 @@ import {StyleSheet, Text, View} from "react-native";
 //import constants
 import styleConstants from "../../constants/styleConstants";
 
-//import component
-import Create from "./Create";
-
 const Header: React.FC = () => {
     return (
         <View style={styles.container}>
             <Text style={styles.text}>écume</Text>
-            <Create/>
         </View>
     )
 }

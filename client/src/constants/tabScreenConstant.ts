@@ -1,15 +1,14 @@
-//import components
-import HomeScreen from "../screens/auth/HomeScreen";
-import NotificationScreen from "../screens/auth/NotificationScreen";
-import FolderScreen from "../screens/auth/FolderScreen";
-import ProfileScreen from "../screens/auth/ProfileScreen";
+const tabScreenOptions = {
+    headerStyle: {
+        borderColor: "rgb(219,219, 219)",
+        borderWidth: 0.5
+    },
+    tabBarStyle: {
+        borderTopWidth: 0.5,
+        borderTopColor: "rgb(219,219, 219)",
+        shadowColor: "white"
+    },
+    tabBarShowLabel: false,
+}
 
-//import interfaces
-import {ITabScreenConstant} from "../interfaces/tabScreenInterfaces";
-
-export const tabScreenConstant: Array<ITabScreenConstant> = [
-    {name: "Home", component: HomeScreen, icon: "home-outline"},
-    {name: "Folder", component: FolderScreen, icon: "folder-open-outline"},
-    {name: "Notification", component: NotificationScreen, icon: "md-notifications-outline"},
-    {name: "Profile", component: ProfileScreen, icon: "person-outline"}
-]
+export default tabScreenOptions

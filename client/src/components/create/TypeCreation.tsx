@@ -2,7 +2,7 @@ import React from 'react'
 import {StyleSheet, View} from "react-native";
 
 //Import components
-import RadioButton from "../common/RadioButton";
+import RadioIconButton from "../buttons/RadioIconButton";
 
 interface ITypeCreation {
     type: number
@@ -15,7 +15,7 @@ const TypeCreation: React.FC<ITypeCreation> = ({type, setType}) => {
     return (
         <View style={styles.container}>
             {radioButtons.map((button, index) =>
-                <RadioButton key={index} index={index} icon={button} value={type} setValue={setType}/>)}
+                <RadioIconButton key={index} index={index} icon={button} value={type} setValue={setType}/>)}
         </View>
     )
 }

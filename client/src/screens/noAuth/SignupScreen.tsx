@@ -15,7 +15,7 @@ import input from "../../constants/input";
 import Icon from "../../assets/icons/verso.png";
 
 //import components
-import Submit from "../../components/common/Submit";
+import Submit from "../../components/buttons/Submit";
 import AppText from "../../components/common/AppText";
 
 //import interfaces

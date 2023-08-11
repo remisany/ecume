@@ -9,7 +9,7 @@ import storageConstants from "../../constants/storageConstants";
 //import interfaces
 import {IToken} from "../../interfaces/tokenInterface";
 
-const AuthScreen: React.FC = ({children}) => {
+const Auth: React.FC = ({children}) => {
     const [loading, setLoading] = useState(true)
 
     const navigation = useNavigation()
@@ -40,4 +40,4 @@ const AuthScreen: React.FC = ({children}) => {
     )
 }
 
-export default AuthScreen;
+export default Auth;

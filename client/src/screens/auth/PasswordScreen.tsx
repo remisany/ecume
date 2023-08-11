@@ -13,8 +13,8 @@ import styleConstants from "../../constants/styleConstants"
 import validation from "../../constants/validationConstant";
 
 //import components
-import Submit from "../../components/common/Submit";
-import AuthScreen from "./AuthScreen";
+import Submit from "../../components/buttons/Submit";
+import Auth from "../../components/common/Auth";
 
 //import interfaces
 import {PasswordFormData} from "../../interfaces/formsInterface";
@@ -55,7 +55,7 @@ const PasswordScreen: React.FC = () => {
     const styles = styleConstants.formStyle
 
     return (
-        <AuthScreen>
+        <Auth>
             <View style={styles.container}>
                 <Image style={styles.image} source={Icon}/>
 
@@ -65,7 +65,7 @@ const PasswordScreen: React.FC = () => {
 
                 <Submit title="Définir" onPress={handleSubmit(onSubmit)} setHasSubmit={setHasSubmit}/>
             </View>
-        </AuthScreen>
+        </Auth>
     )
 }
 

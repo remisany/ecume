@@ -6,10 +6,10 @@ import {useNavigation} from "@react-navigation/native";
 import pickerConstants from "../../constants/pickerConstants";
 
 //import components
-import Submit from "../common/Submit";
-import AppPicker from "../common/AppPicker";
-import ProjectDropdown from "../header/ProjectDropdown";
-import TypeCreation from "../header/TypeCreation";
+import Submit from "../buttons/Submit";
+import AppPicker from "./AppPicker";
+import ProjectDropdown from "../create/ProjectDropdown";
+import TypeCreation from "../create/TypeCreation";
 
 const CreateNoteForm: ForwardRefExoticComponent<{}> = forwardRef(({}, ref) => {
     const navigation = useNavigation()
@@ -18,13 +18,9 @@ const CreateNoteForm: ForwardRefExoticComponent<{}> = forwardRef(({}, ref) => {
     const [inspiration, setInspiration] = useState<number>(pickerConstants.inspiration[0].value)
     const [project, setProject] = useState<string>("")
 
-    const onSubmit = () => {
-        ref.current?.close()
-        navigation.navigate("creation", {
-            type: type,
-            inspiration: inspiration,
-            project: project
-        })
+    const onSubmit = async () => {
+        await ref.current?.close()
+        navigation.navigate("creation", {type: type, inspiration: inspiration, project: project})
     }
 
     return (

@@ -1,14 +1,14 @@
 import React from "react";
 
 //import components
-import BottomNav from "../../components/common/BottomNav";
-import AuthScreen from "./AuthScreen";
+import BottomNav from "../../components/bottomNav/BottomNav";
+import Auth from "../../components/common/Auth";
 
 const LoggedInScreen: React.FC = () => {
     return (
-        <AuthScreen>
+        <Auth>
             <BottomNav/>
-        </AuthScreen>
+        </Auth>
     )
 }
 

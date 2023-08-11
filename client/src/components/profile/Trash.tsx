@@ -4,7 +4,7 @@ import {gql, useMutation} from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Import components
-import AppModal from "../common/AppModal";
+import AppModal from "../modal/AppModal";
 
 //import constants
 import toastConstants from "../../constants/toastConstants";

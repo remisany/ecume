@@ -6,7 +6,7 @@ import {BottomSheetBackdrop, BottomSheetModal} from "@gorhom/bottom-sheet";
 import styleConstants from "../../constants/styleConstants";
 
 //import components
-import Border from "./Border";
+import Border from "../common/Border";
 import BottomSheetLink from "./BottomSheetLink";
 
 //import interfaces
