@@ -1,7 +1,7 @@
 //import interfaces
-import {IColors, IFamily, IFormStyle, ISize, IStyleConstants} from "../interfaces/styleConstantsInterfaces";
+import {IColors, IFamily, IFormStyle, ISize} from "../interfaces/styleConstantsInterfaces";
 
-const colors: IColors = {
+export const colors: IColors = {
     yellow: '#F2BE5C',
     orange: '#F27141',
     background: '#f9f9f9',
@@ -12,22 +12,23 @@ const colors: IColors = {
     error: "#FE6301"
 }
 
-const size: ISize = {
-    fontTitle: 35,
+export const size: ISize = {
+    largeTitle: 35,
+    smallTitle: 20,
     regular: 14,
     small: 12,
     radius: 5,
     paddingContainer: 50,
 }
 
-const family: IFamily = {
+export const family: IFamily = {
     light: "OpenSans-Light",
     regular: "OpenSans-Regular",
     bold: "OpenSans-Bold",
     pacifico: "Pacifico"
 }
 
-const formStyle: IFormStyle = {
+export const formStyle: IFormStyle = {
     container: {
         display: 'flex',
         justifyContent: "flex-end",
@@ -37,7 +38,7 @@ const formStyle: IFormStyle = {
     },
     title: {
         fontFamily: "OpenSans-Bold",
-        fontSize: size.fontTitle,
+        fontSize: size.largeTitle,
         marginBottom: 10
     },
     image: {
@@ -57,12 +58,3 @@ const formStyle: IFormStyle = {
         fontSize: size.regular
     }
 }
-
-const styleConstants: IStyleConstants = {
-    colors: colors,
-    size: size,
-    family: family,
-    formStyle: formStyle
-}
-
-export default styleConstants;

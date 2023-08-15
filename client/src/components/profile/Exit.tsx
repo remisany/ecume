@@ -3,7 +3,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import {useNavigation} from "@react-navigation/native";
 
 //import component
-import AppModal from "../modal/AppModal";
+import BottomModal from "../modal/BottomModal";
 
 //import constants
 import toastConstants from "../../constants/toastConstants";
@@ -20,7 +20,7 @@ const Exit: ForwardRefExoticComponent<{}> = forwardRef((_, ref) => {
     const refuse = () => ref.current?.close()
 
     return (
-        <AppModal
+        <BottomModal
             accept={accept}
             refuse={refuse}
             text="Se déconnecter ?"

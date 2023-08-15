@@ -4,7 +4,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {useQuery} from "@apollo/client";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {family, size} from "../../constants/styleConstants";
 import {concatProjects, defaultProjects} from "../../constants/projects";
 import storageConstants from "../../constants/storageConstants";
 
@@ -72,13 +72,13 @@ const ProjectDropdown: React.FC = ({project, setProject}) => {
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: styleConstants.family.bold,
+        fontFamily: family.bold,
         fontSize: 20,
         marginBottom: 10,
         alignSelf: "center"
     },
     contentContainer: {
-        paddingHorizontal: styleConstants.size.paddingContainer
+        paddingHorizontal: size.paddingContainer
     },
 });
 

@@ -4,7 +4,7 @@ import {View, StyleSheet, Text, Pressable} from 'react-native'
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors, family, size} from "../../constants/styleConstants";
 
 //import components
 import CreateNoteForm from "../forms/CreateNoteForm";
@@ -21,8 +21,8 @@ const Create: React.FC = () => {
     return (
         <View style={styles.container}>
             <Pressable onPress={handlePresentModalPress} style={styles.button}>
-                <View style={{backgroundColor: styleConstants.colors.white, position: "absolute", height: 35, width: 35}}></View>
-                <Ionicons name="add-circle-sharp" color={styleConstants.colors.yellow} size={70}/>
+                <View style={{backgroundColor: colors.white, position: "absolute", height: 35, width: 35}}></View>
+                <Ionicons name="add-circle-sharp" color={colors.yellow} size={70}/>
             </Pressable>
             <BottomSheetModal
                 ref={bSMRef}
@@ -41,7 +41,7 @@ const Create: React.FC = () => {
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: styleConstants.family.bold,
+        fontFamily: family.bold,
         fontSize: 20,
         alignSelf: "center"
     },
@@ -52,7 +52,6 @@ const styles = StyleSheet.create({
         marginTop: -37.5
     },
     button: {
-        //backgroundColor: "black",
         height: 70,
         width: 70,
         display: "flex",
@@ -60,7 +59,7 @@ const styles = StyleSheet.create({
         justifyContent: "center"
     },
     contentContainer: {
-        paddingHorizontal: styleConstants.size.paddingContainer
+        paddingHorizontal: size.paddingContainer
     },
 });
 

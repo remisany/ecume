@@ -1,18 +1,18 @@
 import Toast, {ErrorToast, SuccessToast} from "react-native-toast-message";
 
 //import constants
-import styleConstants from "./styleConstants";
+import {colors, family, size} from "./styleConstants";
 
 const defaultStyle = {
     text1Style: {
-        fontSize: styleConstants.size.regular,
-        fontFamily: styleConstants.family.bold,
-        color: styleConstants.colors.black
+        fontSize: size.regular,
+        fontFamily: family.bold,
+        color: colors.black
     },
     text2Style: {
-        fontSize: styleConstants.size.regular,
-        fontFamily: styleConstants.family.regular,
-        color: styleConstants.colors.grey
+        fontSize: size.regular,
+        fontFamily: family.regular,
+        color: colors.grey
     }
 }
 
@@ -21,14 +21,14 @@ const config = {
         <SuccessToast
             {...props}
             {...defaultStyle}
-            style={{borderLeftColor: styleConstants.colors.yellow, borderRadius: 5}}
+            style={{borderLeftColor: colors.yellow, borderRadius: 5}}
         />
     ),
     error: (props) => (
         <ErrorToast
             {...props}
             {...defaultStyle}
-            style={{borderLeftColor: styleConstants.colors.orange, borderRadius: 5}}
+            style={{borderLeftColor: colors.orange, borderRadius: 5}}
         />
     ),
 }

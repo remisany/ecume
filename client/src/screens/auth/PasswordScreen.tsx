@@ -9,7 +9,7 @@ import {useNavigation} from "@react-navigation/native";
 import Icon from "../../assets/icons/verso.png"
 
 //import constants
-import styleConstants from "../../constants/styleConstants"
+import {formStyle} from "../../constants/styleConstants"
 import validation from "../../constants/validationConstant";
 
 //import components
@@ -52,7 +52,7 @@ const PasswordScreen: React.FC = () => {
         })
     })
 
-    const styles = styleConstants.formStyle
+    const styles = formStyle
 
     return (
         <Auth>

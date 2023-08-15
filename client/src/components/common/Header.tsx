@@ -2,7 +2,7 @@ import * as React from "react";
 import {StyleSheet, Text, View} from "react-native";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors, size} from "../../constants/styleConstants";
 
 const Header: React.FC = () => {
     return (
@@ -22,8 +22,8 @@ const styles = StyleSheet.create({
     },
     text: {
         fontFamily: "Pacifico",
-        fontSize: styleConstants.size.fontTitle,
-        color: styleConstants.colors.black,
+        fontSize: size.largeTitle,
+        color: colors.black,
         marginTop: -10,
         marginLeft: -2
     }

@@ -3,7 +3,7 @@ import {Text, StyleSheet, Pressable, StyleProp} from 'react-native';
 import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors, family, size} from "../../constants/styleConstants";
 
 interface ISubmit {
     title: string
@@ -32,7 +32,7 @@ export default Submit
 
 const styles = StyleSheet.create({
     button: {
-        backgroundColor: styleConstants.colors.yellow,
+        backgroundColor: colors.yellow,
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
@@ -42,9 +42,9 @@ const styles = StyleSheet.create({
         borderRadius: 5
     },
     text: {
-        fontFamily: styleConstants.family.regular,
-        color: styleConstants.colors.white,
+        fontFamily: family.regular,
+        color: colors.white,
         textTransform: "uppercase",
-        fontSize: styleConstants.size.regular
+        fontSize: size.regular
     }
 })

@@ -5,7 +5,7 @@ import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 //import constants
 import storageConstants from "../../constants/storageConstants";
-import styleConstants from "../../constants/styleConstants";
+import {colors, family, size} from "../../constants/styleConstants";
 
 //import interfaces
 import {IToken} from "../../interfaces/tokenInterface";
@@ -45,7 +45,7 @@ const ProfileScreen: React.FC = () => {
             <View style={styles.iconContainer}>
                 <IconButton name="key" onPress={() => navigation.navigate("definition")}/>
                 <IconButton name="exit" onPress={() => handlePresentModalPress(bSMExitRef)}/>
-                <IconButton name="trash" onPress={() => handlePresentModalPress(bSMTrashRef)} customStyle={{backgroundColor: styleConstants.colors.orange}}/>
+                <IconButton name="trash" onPress={() => handlePresentModalPress(bSMTrashRef)} customStyle={{backgroundColor: colors.orange}}/>
             </View>
 
             <Exit ref={bSMExitRef}/>
@@ -58,15 +58,15 @@ export default ProfileScreen;
 
 const styles = StyleSheet.create({
     container: {
-        padding: styleConstants.size.paddingContainer,
-        backgroundColor: styleConstants.colors.white,
+        padding: size.paddingContainer,
+        backgroundColor: colors.white,
         flex: 1,
         justifyContent: "center",
         alignItems: "center",
     },
     thumbnail: {
         marginTop: -100,
-        backgroundColor: styleConstants.colors.yellow,
+        backgroundColor: colors.yellow,
         height: 100,
         width: 100,
         borderRadius: 50,
@@ -76,16 +76,16 @@ const styles = StyleSheet.create({
         alignSelf: "center",
     },
     initial: {
-        color: styleConstants.colors.white,
-        fontSize: styleConstants.size.fontTitle,
-        fontFamily: styleConstants.family.bold
+        color: colors.white,
+        fontSize: size.largeTitle,
+        fontFamily: family.bold
     },
     mail: {
         display: "flex",
         justifyContent: "center",
         borderStyle: "solid",
         marginVertical: 20,
-        fontSize: styleConstants.size.regular,
+        fontSize: size.regular,
     },
     iconContainer: {
         display: "flex",

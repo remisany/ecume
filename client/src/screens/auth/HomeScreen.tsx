@@ -2,7 +2,7 @@ import * as React from "react";
 import {StyleSheet, Text, View} from "react-native";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors} from "../../constants/styleConstants";
 
 const HomeScreen: React.FC = () => {
     return (
@@ -17,6 +17,6 @@ export default HomeScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: styleConstants.colors.white
+        backgroundColor: colors.white
     },
 });

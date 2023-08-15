@@ -6,7 +6,7 @@ import AppText from "../../components/common/AppText";
 import Submit from "../buttons/Submit";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors, size} from "../../constants/styleConstants";
 
 interface IPermission {
     requestPermission: Function
@@ -25,11 +25,15 @@ export default Permission;
 
 const styles = StyleSheet.create({
     permission:  {
-        backgroundColor: styleConstants.colors.white,
+        position: "absolute",
+        backgroundColor: colors.white,
+        zIndex: 1000,
         flex: 1,
+        height: "100%",
+        width: "100%",
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        padding: styleConstants.size.paddingContainer
+        padding: size.paddingContainer
     },
 })

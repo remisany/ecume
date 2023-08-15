@@ -9,7 +9,7 @@ import {gql, useMutation} from "@apollo/client";
 import Icon from "../../assets/icons/recto.png"
 
 //import constants
-import styleConstants from "../../constants/styleConstants"
+import {colors, size} from "../../constants/styleConstants"
 import validation from "../../constants/validationConstant";
 import encrypt from "../../constants/crypto";
 import toast from "../../constants/toastConstants";
@@ -53,7 +53,7 @@ const LoginScreen: React.FC = ({navigation}) => {
         })
     })
 
-    const styles = styleConstants.formStyle
+    const styles = formStyle
 
     return (
         <View style={styles.container}>
@@ -80,8 +80,8 @@ export default LoginScreen;
 
 const LSStyles = StyleSheet.create({
     forgot: {
-        fontSize: styleConstants.size.small,
-        color: styleConstants.colors.yellow,
+        fontSize: size.small,
+        color: colors.yellow,
         fontFamily: "OpenSans-Bold",
         textAlign: "right"
     }

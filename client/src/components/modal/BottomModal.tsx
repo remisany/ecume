@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from "react-native";
 import {BottomSheetBackdrop, BottomSheetModal} from "@gorhom/bottom-sheet";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors, family, size} from "../../constants/styleConstants";
 
 //import components
 import Border from "../common/Border";
@@ -12,7 +12,7 @@ import BottomSheetLink from "./BottomSheetLink";
 //import interfaces
 import {IModalCustomStyle} from "../../interfaces/modalInterface";
 
-interface IAppModal {
+interface IBottomModal {
     text: string
     accept?: Function
     acceptLong?: Function
@@ -20,14 +20,14 @@ interface IAppModal {
     subtitle?: string
 }
 
-const AppModal: ForwardRefExoticComponent<IAppModal> = forwardRef(({text, accept, acceptLong, refuse, subtitle}, ref) => {
+const BottomModal: ForwardRefExoticComponent<IBottomModal> = forwardRef(({text, accept, acceptLong, refuse, subtitle}, ref) => {
     const snapPoints = useMemo(() => ['5%', '25%'], [])
 
     const renderBackdrop = useCallback((props) => <BottomSheetBackdrop {...props} />, []);
 
     const acceptCustomStyle: IModalCustomStyle = {
-        styleText: {color: styleConstants.colors.orange},
-        styleIcon: styleConstants.colors.orange
+        styleText: {color: colors.orange},
+        styleIcon: colors.orange
     }
 
     return (
@@ -50,7 +50,7 @@ const AppModal: ForwardRefExoticComponent<IAppModal> = forwardRef(({text, accept
     )
 })
 
-export default AppModal;
+export default BottomModal;
 
 const styles = StyleSheet.create({
     contentContainer: {
@@ -58,13 +58,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontFamily: styleConstants.family.bold,
+        fontFamily: family.bold,
         fontSize: 20,
         marginBottom: 10
     },
     subtitle: {
-        fontSize: styleConstants.size.small,
-        fontFamily: styleConstants.family.light,
+        fontSize: size.small,
+        fontFamily: family.light,
         marginTop: -10,
         marginBottom: 10
     }

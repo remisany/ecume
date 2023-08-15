@@ -3,7 +3,7 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import {useNavigation} from "@react-navigation/native";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors} from "../../constants/styleConstants";
 
 interface IIcon {
     name: keyof typeof Ionicons.glyphMap
@@ -15,7 +15,7 @@ const Icon: React.FC<IIcon> = ({name}) => {
     const full: keyof typeof Ionicons.glyphMap = name.replace("-outline", "") as keyof typeof Ionicons.glyphMap
 
     return (
-        <Ionicons name={navigation.isFocused() ? full : name} color={styleConstants.colors.black} size={25}/>
+        <Ionicons name={navigation.isFocused() ? full : name} color={colors.black} size={25}/>
     )
 }
 

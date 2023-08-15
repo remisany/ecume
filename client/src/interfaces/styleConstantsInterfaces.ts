@@ -13,7 +13,8 @@ export interface IColors {
 }
 
 export interface ISize {
-    fontTitle: number
+    largeTitle: number
+    smallTitle: number
     regular: number
     radius: number
     paddingContainer: number
@@ -33,11 +34,4 @@ export interface IFormStyle {
     image: StyleProp<ImageStyle>,
     end: StyleProp<ViewStyle>,
     link: StyleProp<ViewStyle>
-}
-
-export interface IStyleConstants {
-    colors: IColors,
-    size: ISize,
-    family: IFamily
-    formStyle: IFormStyle
 }

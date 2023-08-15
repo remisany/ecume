@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import {StyleSheet, TextInput, View} from "react-native";
+import React from "react";
+import {StyleSheet, View} from "react-native";
 import {Controller} from "react-hook-form";
 import {Control} from "react-hook-form/dist/types/form";
 import {FieldErrors} from "react-hook-form/dist/types/errors";
@@ -8,7 +8,8 @@ import Ionicons from "@expo/vector-icons/Ionicons";
 import {FieldPath} from "react-hook-form/dist/types/path";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors, size} from "../../constants/styleConstants";
+import {TextInput} from "react-native-paper";
 
 interface IInput {
     control: Control
@@ -20,29 +21,22 @@ interface IInput {
 }
 
 const Input: React.FC<IInput> = ({control, errors, name, rules, placeholder, hasSubmit}) => {
-    const [color, setColor] = useState<string>(styleConstants.colors.black)
-
-    const inputOnBlur = () => setColor(styleConstants.colors.black)
-
-    const inputOnFocus = () => setColor(styleConstants.colors.yellow)
-
     return (
         <View style={styles.container}>
             <Controller
                 control={control}
                 render={({field: {onChange, onBlur, value}}) => (
                     <TextInput
-                        style={[{borderColor: hasSubmit && errors && errors[name] ? styleConstants.colors.orange : color}, styles.input]}
-                        onBlur={() => {
-                            inputOnBlur()
-                            onBlur()
-                        }}
+                        mode="outlined"
+                        label={placeholder}
+                        style={[styles.input]}
+                        onBlur={onBlur}
                         autoCapitalize="none"
-                        onFocus={inputOnFocus}
                         onChangeText={onChange}
                         value={value}
-                        placeholder={placeholder}
                         secureTextEntry={name === "password"}
+                        outlineColor={hasSubmit && errors && errors[name] ? colors.orange : colors.black}
+                        activeOutlineColor={colors.yellow}
                     />
                 )}
                 name={name}
@@ -52,7 +46,7 @@ const Input: React.FC<IInput> = ({control, errors, name, rules, placeholder, has
                 <View style={styles.icon}>
                     <Ionicons
                         name={errors[name] ? "alert-circle" : "checkmark-circle"}
-                        color={errors[name] ? styleConstants.colors.orange : styleConstants.colors.yellow}
+                        color={errors[name] ? colors.orange : colors.yellow}
                         size={25}
                     />
                 </View>
@@ -68,20 +62,17 @@ const styles = StyleSheet.create({
         position: "relative"
     },
     input: {
-        borderStyle: "solid",
-        borderWidth: 1,
-        borderRadius: 5,
         marginVertical: 5,
         height: 45,
-        fontSize: styleConstants.size.regular,
-        paddingHorizontal: 10,
+        fontSize: size.regular,
+        backgroundColor: 'transparent'
     },
     icon: {
         position: "absolute",
         height: 41,
         marginVertical: 7,
         right: 3,
-        backgroundColor: styleConstants.colors.white,
+        backgroundColor: colors.white,
         display: "flex",
         justifyContent: "center",
         alignItems: "center"

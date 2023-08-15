@@ -4,7 +4,7 @@ import {gql, useMutation} from "@apollo/client";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 //Import components
-import AppModal from "../modal/AppModal";
+import BottomModal from "../modal/BottomModal";
 
 //import constants
 import toastConstants from "../../constants/toastConstants";
@@ -38,7 +38,7 @@ const Trash: ForwardRefExoticComponent<{}> = forwardRef((_, ref) => {
     const refuse = () => ref.current?.close()
 
     return (
-        <AppModal
+        <BottomModal
             acceptLong={accept}
             refuse={refuse}
             text="Supprimer définitivement ?"

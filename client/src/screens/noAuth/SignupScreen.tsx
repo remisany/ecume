@@ -7,7 +7,7 @@ import {gql, useMutation} from "@apollo/client";
 
 //import constants
 import validation from "../../constants/validationConstant";
-import styleConstants from "../../constants/styleConstants";
+import {formStyle} from "../../constants/styleConstants";
 import toast from "../../constants/toastConstants"
 import input from "../../constants/input";
 
@@ -49,7 +49,7 @@ const SignupScreen: React.FC = ({navigation}) => {
         })
     })
 
-    const styles = styleConstants.formStyle
+    const styles = formStyle
 
     return (
         <View style={styles.container}>

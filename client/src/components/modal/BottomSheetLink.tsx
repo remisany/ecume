@@ -1,9 +1,9 @@
 import React from 'react'
-import {View, StyleSheet, StyleProp, Pressable} from 'react-native'
+import {StyleSheet, Pressable} from 'react-native'
 import Ionicons from "@expo/vector-icons/Ionicons";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors} from "../../constants/styleConstants";
 
 //import components
 import AppText from "../common/AppText";
@@ -25,7 +25,7 @@ const BottomSheetLink: React.FC<IBottomSheetLink> = ({icon, title, onPress, onLo
 
     return (
         <Pressable style={styles.container} onPress={onPress && onPress} onLongPress={onLongPress && onLongPress}>
-            <Ionicons name={icon} color={customStyle ? styleIcon : styleConstants.colors.black} size={25}/>
+            <Ionicons name={icon} color={customStyle ? styleIcon : colors.black} size={25}/>
             <AppText customStyle={[{marginLeft: 10}, styleText]}>{title}</AppText>
         </Pressable>
     )

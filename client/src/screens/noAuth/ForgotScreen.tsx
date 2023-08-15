@@ -9,7 +9,7 @@ import {gql, useMutation} from "@apollo/client";
 import Icon from "../../assets/icons/verso.png";
 
 //import constants
-import styleConstants from "../../constants/styleConstants"
+import {formStyle} from "../../constants/styleConstants"
 import validation from "../../constants/validationConstant";
 import input from "../../constants/input";
 import encrypt from "../../constants/crypto";
@@ -49,7 +49,7 @@ const ForgotScreen: React.FC = () => {
             data.forgotPassword.code === "203" && toast.error("Une erreur est survenue !", "Utilisateur inconnu")
         })
     })
-    const styles = styleConstants.formStyle
+    const styles = formStyle
 
     return (
         <View style={styles.container}>

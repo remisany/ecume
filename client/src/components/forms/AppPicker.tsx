@@ -10,7 +10,7 @@ import AppText from "../common/AppText";
 import {IPickerItems} from "../../interfaces/pickerInterface";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {colors} from "../../constants/styleConstants";
 
 interface IAppPicker {
     title: string
@@ -26,7 +26,7 @@ const AppPicker: React.FC<IAppPicker> = ({title, items, value, setValue}) => {
         <View style={styles.container}>
             <AppText customStyle={{marginBottom: 5}}>{title}</AppText>
             <Dropdown
-                style={[styles.dropdown, isFocus && {borderColor: styleConstants.colors.yellow}]}
+                style={[styles.dropdown, isFocus && {borderColor: colors.yellow}]}
                 data={items}
                 maxHeight={250}
                 labelField="label"
@@ -35,14 +35,14 @@ const AppPicker: React.FC<IAppPicker> = ({title, items, value, setValue}) => {
                 placeholder={!isFocus ? '' : ''}
                 onFocus={() => setIsFocus(true)}
                 onBlur={() => setIsFocus(false)}
-                activeColor={styleConstants.colors.yellow}
+                activeColor={colors.yellow}
                 onChange={item => {
                     setValue(item.value)
                     setIsFocus(false)
                 }}
                 renderRightIcon={() => (
-                    isFocus ? <Ionicons name="chevron-up" color={styleConstants.colors.yellow} size={25}/>
-                    : <Ionicons name="chevron-down" color={styleConstants.colors.black} size={25}/>
+                    isFocus ? <Ionicons name="chevron-up" color={colors.yellow} size={25}/>
+                    : <Ionicons name="chevron-down" color={colors.black} size={25}/>
                 )}
                 containerStyle={styles.itemContainer}
                 itemContainerStyle={{borderRadius: 5}}
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     },
     dropdown: {
         height: 45,
-        borderColor: styleConstants.colors.black,
+        borderColor: colors.black,
         borderWidth: 1,
         borderRadius: 5,
         paddingHorizontal: 10,

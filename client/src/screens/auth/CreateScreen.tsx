@@ -1,32 +1,47 @@
-import React, {useState} from "react";
-import Ionicons from "@expo/vector-icons/Ionicons";
-import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
+import React, {useEffect, useState} from "react";
+import {BackHandler, ScrollView, StyleSheet, View} from "react-native";
 import {useMutation} from "@apollo/client";
 
 //import components
 import AuthComponent from "../../components/common/Auth";
-import CText from "../../components/create/CText";
-import CPicture from "../../components/create/CPicture";
+import CreateText from "../../components/create/CreateText";
+import CreatePicture from "../../components/create/CreatePicture";
+import CreateHeader from "../../components/create/CreateHeader";
 import Loader from "../../components/common/Loader";
-
-//import constants
-import styleConstants from "../../constants/styleConstants";
-import toast from "../../constants/toastConstants";
-
-//import mutations
-import {CREATE_NOTE} from "../../server/mutations";
+import Inspiration from "../../components/create/Inspiration";
+import Modal from "../../components/modal/Modal";
 
 //import interfaces
 import {IPictureContent} from "../../interfaces/noteInterfaces";
 
-const CreateScreen: React.FC = ({route, navigation}) => {
-    const [createNote, {loading}] = useMutation(CREATE_NOTE);
+//import mutations
+import {CREATE_NOTE} from "../../server/mutations";
 
+//import constants
+import {colors} from "../../constants/styleConstants";
+import toast from "../../constants/toastConstants";
+
+const CreateScreen: React.FC = ({route, navigation}) => {
     const {type, inspiration, project} = route.params;
 
-    const title = ["Texte", "Photographie", "Dessin"]
-
+    const [loader, setLoader] = useState<boolean>(false)
+    const [visible, setVisible] = useState<boolean>(false)
     const [content, setContent] = useState<string | IPictureContent | null>(null)
+
+    const [createNote, {loading}] = useMutation(CREATE_NOTE);
+
+    useEffect(() => {
+        setLoader(loading)
+    }, [loading])
+
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', () => {
+            setVisible(true)
+            return true
+        })
+
+        return () => backHandler.remove()
+    }, [])
 
     const submit = () => {
         const input = {
@@ -34,7 +49,7 @@ const CreateScreen: React.FC = ({route, navigation}) => {
             type: type,
             inspiration: inspiration,
             ...project && {project: project},
-            ...type === 0 ? {content: content} : {image: content.image}
+            ...type === 0 ? {content: content} : {image: "image" in content && content.image}
         }
 
         createNote({variables: {input}}).then(({data}) => {
@@ -46,21 +61,26 @@ const CreateScreen: React.FC = ({route, navigation}) => {
 
     return (
         <AuthComponent>
-            {loading && <Loader/>}
-            <View style={styles.container}>
-                <View style={styles.titleContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate("connecte")}>
-                        <Ionicons style={{paddingBottom: 1}} name="close" color={styleConstants.colors.black} size={28}/>
-                    </TouchableOpacity>
-                    <Text style={styles.title}>{title[type]}</Text>
-                    {content !== null &&
-                        <TouchableOpacity onPress={submit}>
-                            <Text style={styles.submitText}>Valider</Text>
-                        </TouchableOpacity>}
-                </View>
+            {loader && <Loader/>}
 
-                {type === 0 ? <CText setContent={setContent}/> : <CPicture setContent={setContent} content={content as IPictureContent}/>}
-            </View>
+            {visible && <Modal
+                setVisible={setVisible}
+                visible={visible}
+                title="Revenir à l'écran d'accueil ?"
+                text="Voulez vous vraiment quitter la création de cette note et perdre l'inspiration liée à celle-ci ?"
+                accept={() => navigation.goBack()}
+            />}
+
+            <CreateHeader content={content} submit={submit} type={type}/>
+
+            <ScrollView style={styles.container} keyboardShouldPersistTaps='handled'>
+                <Inspiration inspiration={inspiration}/>
+
+                {type === 0 ?
+                    <CreateText setContent={setContent} content={content as string}/>
+                    :
+                    <CreatePicture setContent={setContent} content={content as IPictureContent} setLoading={setLoader}/>}
+            </ScrollView>
         </AuthComponent>
     )
 }
@@ -70,34 +90,7 @@ export default CreateScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        height: "100%"
-    },
-    titleContainer: {
-        position: "absolute",
-        zIndex: 2,
-        width: "100%",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "flex-end",
-        height: 95,
-        backgroundColor: styleConstants.colors.white,
-        borderColor: "rgb(219,219, 219)",
-        borderWidth: 0.5,
-        paddingHorizontal: 10
-    },
-    title: {
-        fontFamily: styleConstants.family.bold,
-        fontSize: 20,
-        paddingBottom: 3,
-        marginLeft: 10,
-        flex: 1
-    },
-
-    submitText: {
-        fontFamily: styleConstants.family.bold,
-        color: styleConstants.colors.yellow,
-        fontSize: 20,
-        paddingBottom: 3,
-        paddingRight: 3
+        height: "100%",
+        backgroundColor: colors.white
     }
 })

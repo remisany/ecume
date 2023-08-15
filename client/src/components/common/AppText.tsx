@@ -3,7 +3,7 @@ import {StyleProp, StyleSheet, Text} from "react-native";
 import {ViewStyle} from "react-native/Libraries/StyleSheet/StyleSheetTypes";
 
 //import constants
-import styleConstants from "../../constants/styleConstants";
+import {size} from "../../constants/styleConstants";
 
 interface IAppText {
     children: JSX.Element | string
@@ -20,7 +20,7 @@ export default AppText
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: styleConstants.size.regular,
+        fontSize: size.regular,
         fontFamily: "OpenSans-Regular"
     }
 })

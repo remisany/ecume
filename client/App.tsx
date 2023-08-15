@@ -6,6 +6,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import Toast from 'react-native-toast-message';
 import * as NavigationBar from 'expo-navigation-bar';
 import {GestureHandlerRootView} from "react-native-gesture-handler";
+import {PaperProvider} from "react-native-paper";
 
 //import components
 import LoggedInScreen from "./src/screens/auth/LoggedInScreen";
@@ -40,19 +41,21 @@ const App: React.FC = () => {
 
     return (
         <ApolloProvider client={apolloClient}>
-            <GestureHandlerRootView style={{ flex: 1 }}>
-                <NavigationContainer>
-                    <Stack.Navigator screenOptions={{headerShown: false}}>
-                        <Stack.Screen name="connecte" component={LoggedInScreen}/>
-                        <Stack.Screen name="definition" component={PasswordScreen}/>
-                        <Stack.Screen name="connexion" component={LoginScreen}/>
-                        <Stack.Screen name="inscription" component={SignupScreen}/>
-                        <Stack.Screen name="recuperation" component={ForgotScreen}/>
-                        <Stack.Screen name="creation" component={CreateScreen}/>
-                    </Stack.Navigator>
-                </NavigationContainer>
-                <Toast config={toastConstants.config}/>
-            </GestureHandlerRootView>
+            <PaperProvider>
+                <GestureHandlerRootView style={{flex: 1}}>
+                    <NavigationContainer>
+                        <Stack.Navigator screenOptions={{headerShown: false}}>
+                            <Stack.Screen name="connecte" component={LoggedInScreen}/>
+                            <Stack.Screen name="definition" component={PasswordScreen}/>
+                            <Stack.Screen name="connexion" component={LoginScreen}/>
+                            <Stack.Screen name="inscription" component={SignupScreen}/>
+                            <Stack.Screen name="recuperation" component={ForgotScreen}/>
+                            <Stack.Screen name="creation" component={CreateScreen}/>
+                        </Stack.Navigator>
+                    </NavigationContainer>
+                    <Toast config={toastConstants.config}/>
+                </GestureHandlerRootView>
+            </PaperProvider>
         </ApolloProvider>
     )
 }
